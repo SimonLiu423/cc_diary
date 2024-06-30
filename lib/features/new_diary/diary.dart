@@ -1,5 +1,5 @@
+import 'package:cc_diary/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiaryPage extends StatelessWidget {
   const DiaryPage({super.key});
@@ -8,7 +8,7 @@ class DiaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Diary'),
+          title: Text(l10n(context).diaryPageTitle),
         ),
         body: Center());
   }

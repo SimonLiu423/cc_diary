@@ -4,7 +4,8 @@ import 'package:cc_diary/theme.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,19 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'CC Diary',
       home: HomePage(),
+      localizationsDelegates: const [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'), // English
+        Locale.fromSubtags(
+            languageCode: 'zh',
+            scriptCode: 'Hant',
+            countryCode: 'TW'), // Chinese
+      ],
     );
   }
 }
