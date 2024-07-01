@@ -6,7 +6,11 @@
     "profilePageTitle": "Profile",
     "settingsPageTitle": "Settings",
     "addPageTitle": "Add",
-    "numberPageTitle": "Number",
+
+    "daysAgo": "{days} days ago",
+    "hoursAgo": "{hours} hours ago",
+    "minutesAgo": "{minutes} minutes ago",
+    "secondsAgo": "{seconds} seconds ago",
 
     "newDiary_save": "Save",
     "newDiary_close": "Close",
