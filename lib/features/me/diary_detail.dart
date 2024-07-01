@@ -1,7 +1,6 @@
 import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:cc_diary/features/me/widgets/comment_block.dart';
 import 'package:cc_diary/features/me/widgets/diary_preview.dart';
-import 'package:cc_diary/features/me/widgets/music_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -12,9 +11,10 @@ class DiaryDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateFormat dateFormat = DateFormat('yyyy / MM / dd');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Diary Detail'),
+        title: Text(dateFormat.format(diary.date)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -23,7 +23,6 @@ class DiaryDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(DateFormat.yMMMd().format(diary.date)),
                 DiaryPreview(diary: diary),
                 ...diary.comments.map((comment) => Padding(
                       padding: const EdgeInsets.only(top: 12.0),
