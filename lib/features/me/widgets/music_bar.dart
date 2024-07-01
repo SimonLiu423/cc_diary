@@ -1,6 +1,5 @@
 import 'package:audio_session/audio_session.dart';
 import 'package:cc_diary/features/me/widgets/seek_bar.dart';
-import 'package:cc_diary/features/me/widgets/tmp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
@@ -87,6 +86,17 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
       },
       child: Row(
         children: [
+          StreamBuilder<PlayerState>(
+            stream: _player.playerStateStream,
+            builder: (context, snapshot) {
+              final playing = snapshot.data?.playing;
+              if (playing == true) {
+                return const Icon(Icons.pause, color: Colors.black);
+              } else {
+                return const Icon(Icons.play_arrow, color: Colors.black);
+              }
+            },
+          ),
           const MusicTitle(),
         ],
       ),
@@ -99,20 +109,11 @@ class MusicTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // showDialog(
-        //   context: context,
-        //   builder: (context) => const Tmp(),
-        // );
-      },
-      child: Row(
-        children: [
-          Icon(Icons.music_note),
-          SizedBox(width: 10),
-          Text('Music'),
-        ],
-      ),
+    return const Row(
+      children: [
+        SizedBox(width: 10),
+        Text('Music'),
+      ],
     );
   }
 }
