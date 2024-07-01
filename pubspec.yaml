@@ -40,6 +40,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  timelines: ^0.1.0
+  equatable: ^2.0.5
+  just_audio: ^0.9.38
 
 dev_dependencies:
   flutter_test:

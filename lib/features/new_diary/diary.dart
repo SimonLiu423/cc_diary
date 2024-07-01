@@ -8,7 +8,7 @@ class DiaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(l10n(context).diaryPageTitle),
+          title: Text(l10n(context).myDiaryPageTitle),
         ),
         body: Center());
   }

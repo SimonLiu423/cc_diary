@@ -2,9 +2,13 @@
     "appTitle": "CC Diary",
     "homePageTitle": "首頁",
     "infoPageTitle": "資訊",
-    "diaryPageTitle": "日記",
+    "myDiaryPageTitle": "我的日記",
     "profilePageTitle": "個人",
     "settingsPageTitle": "設定",
     "addPageTitle": "新增",
-    "numberPageTitle": "數字"
+    "numberPageTitle": "數字",
+    "daysAgo": "{days} 天前",
+    "hoursAgo": "{hours} 小時前",
+    "minutesAgo": "{minutes} 分鐘前",
+    "secondsAgo": "{seconds} 秒前"
 }

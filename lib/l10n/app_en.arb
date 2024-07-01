@@ -2,9 +2,13 @@
     "appTitle": "CC Diary",
     "homePageTitle": "Home",
     "infoPageTitle": "Information",
-    "diaryPageTitle": "Diary",
+    "myDiaryPageTitle": "My Diary",
     "profilePageTitle": "Profile",
     "settingsPageTitle": "Settings",
     "addPageTitle": "Add",
-    "numberPageTitle": "Number"
+    "numberPageTitle": "Number",
+    "daysAgo": "{days} days ago",
+    "hoursAgo": "{hours} hours ago",
+    "minutesAgo": "{minutes} minutes ago",
+    "secondsAgo": "{seconds} seconds ago"
 }

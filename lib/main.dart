@@ -1,4 +1,5 @@
 import 'package:cc_diary/features/information/info.dart';
+import 'package:cc_diary/features/me/me.dart';
 import 'package:cc_diary/features/new_diary/diary.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
@@ -53,6 +54,8 @@ class _HomePageState extends State<HomePage> {
         return const InfoPage();
       case 2:
         return const DiaryPage();
+      case 3:
+        return const MePage();
       // case 1:
       //   return const ProfilePage();
       // case 2:
