@@ -66,7 +66,7 @@ class _CounterState extends State<Counter> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const DiaryPage(),
+                  builder: (context) => DiaryPage(),
                 ),
               );
             },
