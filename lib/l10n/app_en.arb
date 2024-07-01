@@ -2,9 +2,12 @@
     "appTitle": "CC Diary",
     "homePageTitle": "Home",
     "infoPageTitle": "Information",
-    "diaryPageTitle": "Diary",
+    "myDiaryPageTitle": "My Diary",
     "profilePageTitle": "Profile",
     "settingsPageTitle": "Settings",
     "addPageTitle": "Add",
-    "numberPageTitle": "Number"
+    "numberPageTitle": "Number",
+
+    "newDiary_save": "Save",
+    "newDiary_writeAreaHint": "今天發生了什麼..."
 }
