@@ -1,9 +1,9 @@
 import 'package:cc_diary/features/information/info.dart';
 import 'package:cc_diary/features/me/me.dart';
 import 'package:cc_diary/features/new_diary/diary.dart';
+import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'CC Diary',
       home: HomePage(),
-      localizationsDelegates: const [
+      localizationsDelegates: [
         AppLocalizations.delegate, // Add this line
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -56,10 +56,6 @@ class _HomePageState extends State<HomePage> {
         return const DiaryPage();
       case 3:
         return const MePage();
-      // case 1:
-      //   return const ProfilePage();
-      // case 2:
-      //   return const SettingsPage();
       default:
         return const Placeholder();
     }
@@ -67,18 +63,26 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // return const DiaryPage();
     return Scaffold(
         body: _selectedBody(),
         bottomNavigationBar: ConvexAppBar(
           backgroundColor: theme().primaryColor,
           style: TabStyle.react,
-          items: const [
-            TabItem(icon: Icon(CupertinoIcons.home), title: '資訊'),
-            TabItem(icon: Icon(CupertinoIcons.profile_circled), title: '探索'),
-            TabItem(icon: Icon(CupertinoIcons.settings), title: '新增'),
-            TabItem(icon: Icon(CupertinoIcons.settings), title: '個人'),
-            TabItem(icon: Icon(CupertinoIcons.add), title: '數據'),
+          items: [
+            TabItem(
+                icon: const Icon(Icons.health_and_safety),
+                title: l10n(context).infoPageTitle),
+            TabItem(
+                icon: const Icon(Icons.people),
+                title: l10n(context).explorePageTitle),
+            TabItem(
+                icon: const Icon(Icons.add), title: l10n(context).addPageTitle),
+            TabItem(
+                icon: const Icon(Icons.menu_book_rounded),
+                title: l10n(context).myDiaryPageTitle),
+            TabItem(
+                icon: const Icon(Icons.bar_chart_rounded),
+                title: l10n(context).settingsPageTitle),
           ],
           onTap: (index) {
             setState(() {
