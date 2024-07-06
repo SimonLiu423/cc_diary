@@ -20,20 +20,7 @@ class DiaryDetails extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             DiaryDetailHeader(uploadedAt: diary.date),
             const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.5,
-              ),
-              padding: const EdgeInsets.all(14.0),
-              decoration: BoxDecoration(
-                color: theme().primaryColorDark,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: SingleChildScrollView(
-                  child: Text(diary.content,
-                      style: const TextStyle(fontSize: 16))),
-            ),
+            DiaryDetailBody(diary: diary),
             const CommentInput(),
             ...diary.comments.map((comment) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -63,6 +50,29 @@ class DiaryDetailHeader extends StatelessWidget {
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 3),
           child: const MusicBar()),
     ]);
+  }
+}
+
+class DiaryDetailBody extends StatelessWidget {
+  const DiaryDetailBody({super.key, required this.diary});
+
+  final Diary diary;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.5,
+      ),
+      padding: const EdgeInsets.all(14.0),
+      decoration: BoxDecoration(
+        color: theme().primaryColorDark,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: SingleChildScrollView(
+          child: Text(diary.content, style: const TextStyle(fontSize: 16))),
+    );
   }
 }
 
