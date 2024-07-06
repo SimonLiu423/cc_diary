@@ -1,4 +1,5 @@
 import 'package:cc_diary/core/bloc/diary/diary_bloc.dart';
+import 'package:cc_diary/features/discover/discover.dart';
 import 'package:cc_diary/features/information/info.dart';
 import 'package:cc_diary/features/me/me.dart';
 import 'package:cc_diary/features/new_diary/diary.dart';
@@ -57,6 +58,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     switch (index) {
       case 0:
         return const InfoPage();
+      case 1:
+        return const DiscoverPage();
       case 2:
         return const DiaryPage();
       case 3:
