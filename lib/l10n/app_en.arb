@@ -15,5 +15,11 @@
     "newDiary_save": "Save",
     "newDiary_writeAreaHint": "今天發生了什麼...",
     "depression": "Depression",
-    "bipolar": "Bipolar"
+    "bipolar": "Bipolar",
+    "symptom":"Symptom",
+    "explanation":"Explanation",
+    "groups":"Commonly Affected Groups",
+    "depressionSymptom":"Depression symptoms include a persistent low mood, feeling hopeless, and fatigue for at least two weeks. These may be accompanied by hypersomnia or insomnia, significant appetite reduction leading to weight loss, decreased libido, impaired memory and concentration, lowered self-esteem, chest pain, and possibly self-harm or suicidal thoughts and behaviors.",
+    "depressionExplanation":"Patients and their families often struggle to distinguish between normal bouts of sadness and clinical depression. Normal sadness typically does not persist for more than two weeks and can be alleviated by listening to music, talking with friends, or engaging in outdoor activities, without significantly affecting daily life, interpersonal relationships, or academic and professional performance.\nConversely, if depressive feelings persist for more than two weeks, are intractable, and are accompanied by sluggish behavior, excessive time spent in bed, reduced memory and attention, thoughts of suicide or actual suicidal behaviors, significant impacts on sleep and appetite, and notably impair daily functions such as work or academic performance, it is advised to seek medical evaluation.\nIt is also recommended that family and friends, if noticing similar symptoms in someone close, should avoid being overly critical, asking things like 'Why can't you just be happy?' or 'Can't you look on the bright side?' Such comments can deepen their sorrow, as these individuals are not unwilling to feel happier; rather, they are likely experiencing reduced secretion of chemicals like dopamine in their brain. Thus, such inquiries could further damage their self-esteem. It is important to play a supportive listener role while also being mindful of one's own mental state.",
+    "depressionGroups":"Depression can occur at any age and is a relatively common mental illness. Early treatment of depression can lead to a quicker and more complete recovery of normal functions. Potential triggers include life stress, personal background, genetic predisposition, postpartum depression, and Seasonal Affective Disorder (commonly occurring in winter). Thus, it is helpful to provide relevant information during medical consultations."
 }
