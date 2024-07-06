@@ -17,10 +17,13 @@ class DiaryPreview extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(14.0),
           decoration: BoxDecoration(
-            color: theme().primaryColor.withOpacity(0.1),
+            color: theme().primaryColorDark,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(diary.content),
+          child: Text(diary.content,
+              maxLines: 10,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 16)),
         ),
       ],
     );
