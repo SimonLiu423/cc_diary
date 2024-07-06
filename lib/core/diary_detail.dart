@@ -53,11 +53,16 @@ class DiaryDetailHeader extends StatelessWidget {
   }
 }
 
-class DiaryDetailBody extends StatelessWidget {
+class DiaryDetailBody extends StatefulWidget {
   const DiaryDetailBody({super.key, required this.diary});
 
   final Diary diary;
 
+  @override
+  State<DiaryDetailBody> createState() => _DiaryDetailBodyState();
+}
+
+class _DiaryDetailBodyState extends State<DiaryDetailBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,8 +75,11 @@ class DiaryDetailBody extends StatelessWidget {
         color: theme().primaryColorDark,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: SingleChildScrollView(
-          child: Text(diary.content, style: const TextStyle(fontSize: 16))),
+      child: Scrollbar(
+        child: SingleChildScrollView(
+            child: Text(widget.diary.content,
+                style: const TextStyle(fontSize: 16))),
+      ),
     );
   }
 }
