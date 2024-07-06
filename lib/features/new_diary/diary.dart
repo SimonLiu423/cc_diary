@@ -1,4 +1,4 @@
-import 'package:cc_diary/core/bloc/diary_bloc.dart';
+import 'package:cc_diary/core/bloc/diary/diary_bloc.dart';
 import 'package:cc_diary/core/loading_dialog.dart';
 import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
@@ -62,7 +62,7 @@ class _DiaryPageState extends State<DiaryPage> {
                         ]),
                       ),
                     ),
-                  );
+                  ).then((value) => context.read<TabController>().animateTo(3));
                 }
               },
               builder: (context, state) {

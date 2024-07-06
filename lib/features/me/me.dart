@@ -1,4 +1,4 @@
-import 'package:cc_diary/core/bloc/diary_bloc.dart';
+import 'package:cc_diary/core/bloc/diary/diary_bloc.dart';
 import 'package:cc_diary/features/me/diary_detail.dart';
 import 'package:cc_diary/features/me/widgets/diary_preview.dart';
 import 'package:cc_diary/l10n.dart';
