@@ -1,5 +1,5 @@
 import 'package:cc_diary/core/model/diary_m.dart';
-import 'package:cc_diary/features/me/widgets/music_bar.dart';
+import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
 
