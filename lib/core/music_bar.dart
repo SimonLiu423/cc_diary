@@ -14,14 +14,15 @@ class MusicBar extends StatefulWidget {
 
 class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
   final _player = AudioPlayer();
+  late String _music_title = "Loading...";
 
   @override
   void initState() {
     super.initState();
     ambiguate(WidgetsBinding.instance)!.addObserver(this);
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: Colors.black,
+    // ));
     _init();
   }
 
@@ -29,7 +30,7 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
     // Inform the operating system of our app's audio attributes etc.
     // We pick a reasonable default for an app that plays speech.
     final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.speech());
+    await session.configure(const AudioSessionConfiguration.music());
     // Listen to errors during playback.
     _player.playbackEventStream.listen((event) {},
         onError: (Object e, StackTrace stackTrace) {
@@ -43,6 +44,9 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
     } on PlayerException catch (e) {
       print("Error loading audio source: $e");
     }
+    setState(() {
+      _music_title = "Music";
+    });
   }
 
   @override
@@ -97,23 +101,10 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
               }
             },
           ),
-          const MusicTitle(),
+          const SizedBox(width: 10),
+          Text(_music_title),
         ],
       ),
-    );
-  }
-}
-
-class MusicTitle extends StatelessWidget {
-  const MusicTitle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        SizedBox(width: 10),
-        Text('Music'),
-      ],
     );
   }
 }
