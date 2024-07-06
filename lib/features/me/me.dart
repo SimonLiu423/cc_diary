@@ -15,6 +15,7 @@ class MePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: theme().primaryColor,
         appBar: AppBar(
           title: Text(l10n(context).myDiaryPageTitle),
         ),
@@ -26,7 +27,7 @@ class MePage extends StatelessWidget {
                 if (state is DiaryLoaded) {
                   return Timeline.tileBuilder(
                     theme: TimelineThemeData(
-                        color: theme().primaryColor,
+                        color: theme().secondaryHeaderColor,
                         nodePosition: 0.15,
                         indicatorPosition: 0.1),
                     builder: TimelineTileBuilder.fromStyle(
