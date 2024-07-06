@@ -14,5 +14,6 @@
     "secondsAgo": "{seconds} 秒前",
     "newDiary_save": "儲存",
     "newDiary_close": "關閉",
+    "moodPlot": "情緒折線圖",
     "newDiary_writeAreaHint": "今天發生了什麼..."
 }

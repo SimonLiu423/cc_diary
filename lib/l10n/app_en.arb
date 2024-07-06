@@ -14,5 +14,6 @@
     "secondsAgo": "{seconds} seconds ago",
     "newDiary_save": "Save",
     "newDiary_close": "Close",
+    "moodPlot": "Mood Plot",
     "newDiary_writeAreaHint": "今天發生了什麼..."
 }
