@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/music_search.dart';
 import 'diary_bloc.dart';
 import 'diary_event.dart';
 import 'diary_state.dart';
@@ -52,33 +53,7 @@ class _DiaryPageState extends State<DiaryPage> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.green),
-                          margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                          child: const Icon(
-                            CupertinoIcons.music_note,
-                            size: 30,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
-                            child: const Center(
-                              child: Text(
-                                "www",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 30),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    const MusicSearch(),
                     const SizedBox(height: 10),
                     Container(
                       height: 300,
