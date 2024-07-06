@@ -8,6 +8,7 @@
     "settingsPageTitle": "設定",
     "addPageTitle": "新增",
     "statPageTitle": "統計",
+    "discoverPageTitle": "探索",
     "daysAgo": "{days} 天前",
     "hoursAgo": "{hours} 小時前",
     "minutesAgo": "{minutes} 分鐘前",
@@ -15,9 +16,9 @@
     "newDiary_save": "儲存",
     "newDiary_writeAreaHint": "今天發生了什麼...",
     "informationTitle": "心理疾病資訊站",
-    "symptom":"症狀",
-    "explanation":"解釋",
-    "groups":"好發族群",
+    "symptom": "症狀",
+    "explanation": "解釋",
+    "groups": "好發族群",
     "depression": "憂鬱症",
     "bipolar": "躁鬱症",
     "anxiety": "焦慮症",
@@ -46,5 +47,6 @@
     "newDiary_close": "關閉",
     "moodPlot": "情緒折線圖",
     "loading": "載入中...",
-    "chatBot":"心靈聊天諮詢室"
+    "chatBot":"心靈聊天諮詢室",
+    "anonymous": "匿名"
 }

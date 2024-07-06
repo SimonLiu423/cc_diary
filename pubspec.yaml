@@ -47,6 +47,7 @@ dependencies:
   provider: ^6.1.2
   flutter_chat_ui: ^1.6.14
   dio: ^5.5.0+1
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
     - images/PTSD.png
     - images/Delusional.png
     - images/Schizophrenia.png
+    - audio/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

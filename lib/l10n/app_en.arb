@@ -8,6 +8,7 @@
     "settingsPageTitle": "Settings",
     "addPageTitle": "Add",
     "statPageTitle": "Statistics",
+    "discoverPageTitle": "Discover",
     "daysAgo": "{days} days ago",
     "hoursAgo": "{hours} hours ago",
     "minutesAgo": "{minutes} minutes ago",
@@ -15,9 +16,9 @@
     "newDiary_save": "Save",
     "newDiary_writeAreaHint": "what happens today...",
     "informationTitle": "Mental Health Information Station",
-    "symptom":"Symptom",
-    "explanation":"Explanation",
-    "groups":"Commonly Affected Groups",
+    "symptom": "Symptom",
+    "explanation": "Explanation",
+    "groups": "Commonly Affected Groups",
     "depression": "Depression",
     "bipolar": "Bipolar",
     "anxiety": "Anxiety",
@@ -46,5 +47,6 @@
     "newDiary_close": "Close",
     "moodPlot": "Mood Plot",
     "loading": "Loading...",
-    "chatBot":"Mental Health Assistance"
+    "chatBot":"Mental Health Assistance",
+    "anonymous": "Anonymous"
 }
