@@ -1,22 +1,22 @@
+import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:equatable/equatable.dart';
 
-sealed class DiaryState extends Equatable {
-  const DiaryState();
+sealed class NewDiaryState extends Equatable {
+  const NewDiaryState();
 
   @override
   List<Object> get props => [];
 }
 
-final class DiaryInitial extends DiaryState {}
+final class DiaryInitial extends NewDiaryState {}
 
-final class DiarySaving extends DiaryState {}
+final class DiarySaving extends NewDiaryState {}
 
-class DiarySaved extends DiaryState {
-  final String songId;
-  final String diaryResult;
+class DiarySaved extends NewDiaryState {
+  const DiarySaved(this.diary);
 
-  const DiarySaved(this.songId, this.diaryResult);
+  final Diary diary;
 
   @override
-  List<Object> get props => [songId, diaryResult];
+  List<Object> get props => [diary];
 }

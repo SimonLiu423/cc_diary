@@ -1,20 +1,30 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'diary_event.dart';
 import 'diary_state.dart';
 
-class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
-  DiaryBloc() : super(DiaryInitial()) {
+class NewDiaryBloc extends Bloc<NewDiaryEvent, NewDiaryState> {
+  NewDiaryBloc() : super(DiaryInitial()) {
     on<SaveDiary>(_onSaveDiary);
   }
 
-  FutureOr<void> _onSaveDiary(SaveDiary event, Emitter<DiaryState> emit) {
+  FutureOr<void> _onSaveDiary(
+      SaveDiary event, Emitter<NewDiaryState> emit) async {
     log(event.diaryContent);
     emit(DiarySaving());
-    emit(DiarySaved(event.songId, "你嘻嘻了"));
+    await Future.delayed(const Duration(seconds: 1));
+    emit(DiarySaved(
+      Diary(
+        content: event.diaryContent,
+        date: DateTime.now(),
+        mood: Mood.normal,
+        songId: event.songId,
+        comments: [],
+      ),
+    ));
   }
 }

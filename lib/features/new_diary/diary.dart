@@ -1,4 +1,7 @@
+import 'package:cc_diary/core/bloc/diary/diary_bloc.dart';
+import 'package:cc_diary/core/loading_dialog.dart';
 import 'package:cc_diary/l10n.dart';
+import 'package:cc_diary/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,25 +30,39 @@ class _DiaryPageState extends State<DiaryPage> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: BlocProvider(
-            create: (context) => DiaryBloc(),
-            child: BlocConsumer<DiaryBloc, DiaryState>(
+            create: (context) => NewDiaryBloc(),
+            child: BlocConsumer<NewDiaryBloc, NewDiaryState>(
               listener: (context, state) {
+                if (state is DiarySaving) {
+                  showDialog(
+                      context: context, builder: (_) => const LoadingDialog());
+                }
                 // Show AI result after save
                 if (state is DiarySaved) {
+                  // pop the loading dialog
+                  Navigator.pop(context);
+                  // add the result to the local bloc
+                  context.read<DiaryBloc>().add(AddDiary(state.diary));
+                  // show AI result
                   showDialog(
                     context: context,
                     builder: (_) => Dialog(
-                      backgroundColor: const Color.fromARGB(150, 50, 50, 50),
+                      // backgroundColor: const Color.fromARGB(150, 50, 50, 50),
+                      backgroundColor: theme().primaryColor,
                       child: Container(
-                        height: 700,
                         padding: const EdgeInsets.all(10),
                         child: Column(children: [
-                          Expanded(child: Text(state.diaryResult, style: const TextStyle(fontSize: 20, color: Colors.white))),
-                          TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n(context).newDiary_close)),
+                          Expanded(
+                              child: Text(state.diary.content,
+                                  style: const TextStyle(
+                                      fontSize: 20, color: Colors.white))),
+                          TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(l10n(context).newDiary_close)),
                         ]),
                       ),
                     ),
-                  );
+                  ).then((value) => context.read<TabController>().animateTo(3));
                 }
               },
               builder: (context, state) {
@@ -57,7 +74,8 @@ class _DiaryPageState extends State<DiaryPage> {
                         Container(
                           width: 40,
                           height: 40,
-                          decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.green),
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.green),
                           margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                           child: const Icon(
                             CupertinoIcons.music_note,
@@ -67,7 +85,9 @@ class _DiaryPageState extends State<DiaryPage> {
                         Expanded(
                           child: Container(
                             height: 40,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey),
                             child: const Center(
                               child: Text(
                                 "www",
@@ -82,7 +102,9 @@ class _DiaryPageState extends State<DiaryPage> {
                     const SizedBox(height: 10),
                     Container(
                       height: 300,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.black38),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black38),
                       child: TextField(
                         maxLines: null,
                         minLines: null,
@@ -90,7 +112,8 @@ class _DiaryPageState extends State<DiaryPage> {
                         controller: userInput,
                         decoration: InputDecoration(
                           isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 2),
                           hintText: l10n(context).newDiary_writeAreaHint,
                           border: InputBorder.none,
                           hintStyle: const TextStyle(color: Colors.black26),
@@ -103,15 +126,26 @@ class _DiaryPageState extends State<DiaryPage> {
                         Expanded(
                           child: Row(
                             children: [
-                              IconButton(onPressed: () => {}, icon: const Icon(CupertinoIcons.hand_thumbsdown)),
-                              IconButton(onPressed: () => {}, icon: const Icon(CupertinoIcons.smiley)),
+                              IconButton(
+                                  onPressed: () => {},
+                                  icon: const Icon(
+                                      CupertinoIcons.hand_thumbsdown)),
+                              IconButton(
+                                  onPressed: () => {},
+                                  icon: const Icon(CupertinoIcons.smiley)),
                             ],
                           ),
                         ),
                         TextButton(
-                            onPressed: () => context.read<DiaryBloc>().add(SaveDiary("", userInput.text, 1)),
-                            style: TextButton.styleFrom(backgroundColor: Colors.red),
-                            child: Text(l10n(context).newDiary_save, style: const TextStyle(color: Colors.white))),
+                            onPressed: () {
+                              context
+                                  .read<NewDiaryBloc>()
+                                  .add(SaveDiary("", userInput.text, 1));
+                            },
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.red),
+                            child: Text(l10n(context).newDiary_save,
+                                style: const TextStyle(color: Colors.white))),
                       ],
                     ),
                   ],
