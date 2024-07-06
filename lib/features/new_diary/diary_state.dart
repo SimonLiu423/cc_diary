@@ -9,13 +9,14 @@ sealed class DiaryState extends Equatable {
 
 final class DiaryInitial extends DiaryState {}
 
-class DiaryLoaded extends DiaryState {
-  final String songId;
-  final String diaryContent;
-  final int ccState; // 1 ~ 5
+final class DiarySaving extends DiaryState {}
 
-  const DiaryLoaded(this.songId, this.diaryContent, this.ccState);
+class DiarySaved extends DiaryState {
+  final String songId;
+  final String diaryResult;
+
+  const DiarySaved(this.songId, this.diaryResult);
 
   @override
-  List<Object> get props => [songId, diaryContent];
+  List<Object> get props => [songId, diaryResult];
 }

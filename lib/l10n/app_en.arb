@@ -13,5 +13,6 @@
     "minutesAgo": "{minutes} minutes ago",
     "secondsAgo": "{seconds} seconds ago",
     "newDiary_save": "Save",
+    "newDiary_close": "Close",
     "newDiary_writeAreaHint": "今天發生了什麼..."
 }
