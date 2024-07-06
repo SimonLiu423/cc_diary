@@ -42,7 +42,7 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.informationTitle), // Assuming title is generic or passed dynamically
+        title: Text(loc.informationTitle), // Assuming title is generic or passed dynamically
         backgroundColor: Color(0xffD6CCC2),
       ),
       body: ListView(
@@ -56,6 +56,7 @@ class DetailPage extends StatelessWidget {
           SizedBox(height: 20),
           Text(loc.groups, style: Theme.of(context).textTheme.headlineMedium),
           Text(getLocalizedText('groups')),
+          Text(loc.suggestion, style: Theme.of(context).textTheme.headlineSmall),
         ],
       ),
     );
