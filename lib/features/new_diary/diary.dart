@@ -28,7 +28,26 @@ class _DiaryPageState extends State<DiaryPage> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: BlocProvider(
             create: (context) => DiaryBloc(),
-            child: BlocBuilder<DiaryBloc, DiaryState>(
+            child: BlocConsumer<DiaryBloc, DiaryState>(
+              listener: (context, state) {
+                // Show AI result after save
+                if (state is DiarySaved) {
+                  showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                      backgroundColor: const Color.fromARGB(150, 50, 50, 50),
+                      child: Container(
+                        height: 700,
+                        padding: const EdgeInsets.all(10),
+                        child: Column(children: [
+                          Expanded(child: Text(state.diaryResult, style: const TextStyle(fontSize: 20, color: Colors.white))),
+                          TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n(context).newDiary_close)),
+                        ]),
+                      ),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
@@ -97,7 +116,7 @@ class _DiaryPageState extends State<DiaryPage> {
                     ),
                   ],
                 );
-              }
+              },
             ),
           ),
         ),
