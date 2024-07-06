@@ -1,80 +1,72 @@
-import 'package:cc_diary/features/new_diary/diary.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'detail.dart';  // Import the DetailPage
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-        body: SafeArea(
-      child: Row(children: [
-        Box(),
-        Box(),
-      ]),
-    ));
-  }
-}
+  Widget _buildBox(BuildContext context, String input, String localizedInput) {
 
-class Box extends StatelessWidget {
-  const Box({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      height: 500,
-      child: Column(
-        children: [
-          Image.network(
-            'https://picsum.photos/id/1003/200/300',
-            fit: BoxFit.cover,
-            width: 200,
-            height: 300,
-          ),
-          const Text('Box2'),
-          Counter(),
-        ],
+    return GestureDetector(
+      onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DetailPage(disorderKey: input),
+        ),
+      );
+    },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(170, 93, 78, 63),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              'images/$input.png',
+              fit: BoxFit.cover,
+            ),
+              Text(
+                localizedInput,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
-}
-
-class Counter extends StatefulWidget {
-  const Counter({super.key});
-
-  @override
-  State<Counter> createState() => _CounterState();
-}
-
-class _CounterState extends State<Counter> {
-  late int _counter;
-
-  @override
-  void initState() {
-    super.initState();
-    _counter = 0;
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(_counter.toString()),
-        TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DiaryPage(),
-                ),
-              );
-            },
-            child: Text(
-              '+',
-              style: TextStyle(fontSize: 30),
-            )),
-      ],
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: const Color(0xffF5EBE0),
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.informationTitle),
+          backgroundColor: Color(0xffD6CCC2),
+        ),
+        body: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: (2 / 1),
+          padding: const EdgeInsets.all(16.0),
+          mainAxisSpacing: 16.0,
+          crossAxisSpacing: 20.0,
+          children: [
+            _buildBox(context, 'Depression', AppLocalizations.of(context)!.depression),
+            _buildBox(context, 'Bipolar', AppLocalizations.of(context)!.bipolar),
+            _buildBox(context, 'Anxiety', AppLocalizations.of(context)!.anxiety),
+            _buildBox(context, 'Schizophrenia', AppLocalizations.of(context)!.schizophrenia),
+            _buildBox(context, 'ADHD', AppLocalizations.of(context)!.adhd),
+            _buildBox(context, 'PTSD', AppLocalizations.of(context)!.ptsd),
+          ],
+        ),
+      ),
     );
   }
 }
