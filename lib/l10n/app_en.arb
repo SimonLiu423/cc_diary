@@ -15,5 +15,6 @@
     "newDiary_save": "Save",
     "newDiary_close": "Close",
     "moodPlot": "Mood Plot",
+    "loading": "Loading...",
     "newDiary_writeAreaHint": "今天發生了什麼..."
 }

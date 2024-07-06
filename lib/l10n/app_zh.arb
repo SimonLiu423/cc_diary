@@ -15,5 +15,6 @@
     "newDiary_save": "儲存",
     "newDiary_close": "關閉",
     "moodPlot": "情緒折線圖",
+    "loading": "載入中...",
     "newDiary_writeAreaHint": "今天發生了什麼..."
 }
