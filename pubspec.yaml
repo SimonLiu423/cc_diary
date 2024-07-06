@@ -71,6 +71,10 @@ flutter:
   assets:
     - images/Depression.png
     - images/Bipolar.png
+    - images/Anxiety.png
+    - images/PTSD.png
+    - images/ADHD.png
+    - images/Schizophrenia.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

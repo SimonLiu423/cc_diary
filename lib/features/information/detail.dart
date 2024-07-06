@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class DetailPage extends StatelessWidget {
   final String disorderKey;
@@ -9,15 +11,30 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-
+    log('disorderKey: $disorderKey');
     String getLocalizedText(String key) {
       switch (key) {
         case 'symptom':
-          return loc.depressionSymptom;
+          if(disorderKey == 'Depression') {
+            return loc.depressionSymptom;
+          } else if(disorderKey == 'Bipolar') {
+            return loc.bipolarSymptom;
+          }
+          return 'No information available';
         case 'explanation':
-          return loc.depressionExplanation;
+          if(disorderKey == 'Depression') {
+            return loc.depressionExplanation;
+          } else if(disorderKey == 'Bipolar') {
+            return loc.bipolarExplanation;
+          }
+          return 'No information available';
         case 'groups':
-          return loc.depressionGroups;
+          if(disorderKey == 'Depression') {
+            return loc.depressionGroups;
+          } else if(disorderKey == 'Bipolar') {
+            return loc.bipolarExplanation;
+          }
+          return 'No information available';
         default:
           return 'No information available';
       }
@@ -25,7 +42,7 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.myDiaryPageTitle), // Assuming title is generic or passed dynamically
+        title: Text(AppLocalizations.of(context)!.informationTitle), // Assuming title is generic or passed dynamically
         backgroundColor: Color(0xffD6CCC2),
       ),
       body: ListView(
@@ -33,7 +50,7 @@ class DetailPage extends StatelessWidget {
         children: <Widget>[
           Text(loc.symptom, style: Theme.of(context).textTheme.headlineMedium),
           Text(getLocalizedText('symptom')),
-          SizedBox(height: 20),
+          SizedBox(height: 20, ),
           Text(loc.explanation, style: Theme.of(context).textTheme.headlineMedium),
           Text(getLocalizedText('explanation')),
           SizedBox(height: 20),

@@ -27,14 +27,15 @@ class InfoPage extends StatelessWidget {
               'images/$input.png',
               fit: BoxFit.cover,
             ),
-            Text(
-              localizedInput,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              Text(
+                localizedInput,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -47,7 +48,7 @@ class InfoPage extends StatelessWidget {
       home: Scaffold(
         backgroundColor: const Color(0xffF5EBE0),
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.myDiaryPageTitle),
+          title: Text(AppLocalizations.of(context)!.informationTitle),
           backgroundColor: Color(0xffD6CCC2),
         ),
         body: GridView.count(
@@ -59,6 +60,10 @@ class InfoPage extends StatelessWidget {
           children: [
             _buildBox(context, 'Depression', AppLocalizations.of(context)!.depression),
             _buildBox(context, 'Bipolar', AppLocalizations.of(context)!.bipolar),
+            _buildBox(context, 'Anxiety', AppLocalizations.of(context)!.anxiety),
+            _buildBox(context, 'Schizophrenia', AppLocalizations.of(context)!.schizophrenia),
+            _buildBox(context, 'ADHD', AppLocalizations.of(context)!.adhd),
+            _buildBox(context, 'PTSD', AppLocalizations.of(context)!.ptsd),
           ],
         ),
       ),
