@@ -45,6 +45,8 @@ dependencies:
   just_audio: ^0.9.38
   fl_chart: ^0.68.0
   provider: ^6.1.2
+  flutter_chat_ui: ^1.6.14
+  dio: ^5.5.0+1
   uuid: ^4.4.0
 
 dev_dependencies:
@@ -76,7 +78,7 @@ flutter:
     - images/Bipolar.png
     - images/Anxiety.png
     - images/PTSD.png
-    - images/ADHD.png
+    - images/Delusional.png
     - images/Schizophrenia.png
     - audio/
   #   - images/a_dot_ham.jpeg
