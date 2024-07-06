@@ -98,8 +98,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-              AppLocalizations.of(context)!.chatBot)), //AppLocalizations.of(context)!.chatBot
+          title: Text(AppLocalizations.of(context)!.chatBot)), //AppLocalizations.of(context)!.chatBot
       body: Chat(
         messages: _messages,
         onSendPressed: _handleSendPressed,
