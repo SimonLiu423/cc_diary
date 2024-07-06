@@ -23,7 +23,7 @@
     "anxiety": "Anxiety",
     "schizophrenia": "Schizophrenia",
     "delusional": "Delusional",
-    "ptsd": "PTSD",
+    "ptsd": "Post-traumatic stress disorder",
     "suggestion": "If the symptoms mentioned above persist and are pronounced, you should seek help from a specialist physician.",
     "depressionSymptom":"Depression symptoms include a persistent low mood, feeling hopeless, and fatigue for at least two weeks. These may be accompanied by hypersomnia or insomnia, significant appetite reduction leading to weight loss, decreased libido, impaired memory and concentration, lowered self-esteem, chest pain, and possibly self-harm or suicidal thoughts and behaviors.",
     "depressionExplanation":"Patients and their families often struggle to distinguish between normal bouts of sadness and clinical depression. Normal sadness typically does not persist for more than two weeks and can be alleviated by listening to music, talking with friends, or engaging in outdoor activities, without significantly affecting daily life, interpersonal relationships, or academic and professional performance.\nConversely, if depressive feelings persist for more than two weeks, are intractable, and are accompanied by sluggish behavior, excessive time spent in bed, reduced memory and attention, thoughts of suicide or actual suicidal behaviors, significant impacts on sleep and appetite, and notably impair daily functions such as work or academic performance, it is advised to seek medical evaluation.\nIt is also recommended that family and friends, if noticing similar symptoms in someone close, should avoid being overly critical, asking things like 'Why can't you just be happy?' or 'Can't you look on the bright side?' Such comments can deepen their sorrow, as these individuals are not unwilling to feel happier; rather, they are likely experiencing reduced secretion of chemicals like dopamine in their brain. Thus, such inquiries could further damage their self-esteem. It is important to play a supportive listener role while also being mindful of one's own mental state.",
@@ -45,5 +45,6 @@
     "ptsdGroups":"Individuals who have experienced or witnessed significant traumatic events are at risk, regardless of their age.",
     "newDiary_close": "Close",
     "moodPlot": "Mood Plot",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "chatBot":"Mental Health Assistance"
 }
