@@ -18,16 +18,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'CC Diary',
-      home: HomePage(),
-      localizationsDelegates: [
+      home: const HomePage(),
+      theme: theme(),
+      localizationsDelegates: const [
         AppLocalizations.delegate, // Add this line
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'), // English
         Locale.fromSubtags(
             languageCode: 'zh',
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                 title: l10n(context).myDiaryPageTitle),
             TabItem(
                 icon: const Icon(Icons.bar_chart_rounded),
-                title: l10n(context).settingsPageTitle),
+                title: l10n(context).statPageTitle),
           ],
           onTap: (index) {
             setState(() {
