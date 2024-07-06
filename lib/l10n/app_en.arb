@@ -13,7 +13,25 @@
     "minutesAgo": "{minutes} minutes ago",
     "secondsAgo": "{seconds} seconds ago",
     "newDiary_save": "Save",
+    "newDiary_writeAreaHint": "what happens today...",
+    "informationTitle": "Mental Health Information Station",
+    "symptom":"Symptom",
+    "explanation":"Explanation",
+    "groups":"Commonly Affected Groups",
+    "depression": "Depression",
+    "bipolar": "Bipolar",
+    "anxiety": "Anxiety",
+    "schizophrenia": "Schizophrenia",
+    "adhd": "ADHD",
+    "ptsd": "PTSD",
+    "depressionSymptom":"Depression symptoms include a persistent low mood, feeling hopeless, and fatigue for at least two weeks. These may be accompanied by hypersomnia or insomnia, significant appetite reduction leading to weight loss, decreased libido, impaired memory and concentration, lowered self-esteem, chest pain, and possibly self-harm or suicidal thoughts and behaviors.",
+    "depressionExplanation":"Patients and their families often struggle to distinguish between normal bouts of sadness and clinical depression. Normal sadness typically does not persist for more than two weeks and can be alleviated by listening to music, talking with friends, or engaging in outdoor activities, without significantly affecting daily life, interpersonal relationships, or academic and professional performance.\nConversely, if depressive feelings persist for more than two weeks, are intractable, and are accompanied by sluggish behavior, excessive time spent in bed, reduced memory and attention, thoughts of suicide or actual suicidal behaviors, significant impacts on sleep and appetite, and notably impair daily functions such as work or academic performance, it is advised to seek medical evaluation.\nIt is also recommended that family and friends, if noticing similar symptoms in someone close, should avoid being overly critical, asking things like 'Why can't you just be happy?' or 'Can't you look on the bright side?' Such comments can deepen their sorrow, as these individuals are not unwilling to feel happier; rather, they are likely experiencing reduced secretion of chemicals like dopamine in their brain. Thus, such inquiries could further damage their self-esteem. It is important to play a supportive listener role while also being mindful of one's own mental state.",
+    "depressionGroups":"Depression can occur at any age and is a relatively common mental illness. Early treatment of depression can lead to a quicker and more complete recovery of normal functions. Potential triggers include life stress, personal background, genetic predisposition, postpartum depression, and Seasonal Affective Disorder (commonly occurring in winter). Thus, it is helpful to provide relevant information during medical consultations.",
+    "bipolarSymptom":"This condition is characterized by bipolar fluctuations in mood, alternating between depressive (depressive state) and manic (manic state) episodes.",
+    "bipolarExplanation":"Depressive State: As described on the depression page.\nManic State: Primarily marked by an excessively elevated mood and euphoria, accompanied by an abundance of energy, incessant talking, constant phone use, excessive confidence, a strong belief in one’s abilities, unrealistic optimism, a belief that one can succeed in everything, sometimes even delusions of grandeur. There may be inappropriate and excessive planning, reckless spending or investing, spending a lot of money or time on pleasurable activities such as dancing, clubbing, inappropriate sexual contacts, etc. Despite reduced sleep, one may still feel extremely energetic, even believing that sleep is unnecessary. Appetite might increase or decrease due to excessive activity and busyness.",
+    "bipolarGroups":"The onset of this disorder often begins in adolescence, but can also start in young adulthood or middle age. Two-thirds of cases start with depression and one-third with a manic episode. While most individuals with bipolar disorder can recover from these episodes with treatment, the majority experience recurrences. Regular medical treatment can reduce these relapses, improving the patient's function in life and work, and minimizing negative impacts on the patient and their family.",
+    
     "newDiary_close": "Close",
     "moodPlot": "Mood Plot",
-    "newDiary_writeAreaHint": "今天發生了什麼..."
+    "loading": "Loading..."
 }
