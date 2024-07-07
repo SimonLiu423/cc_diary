@@ -18,7 +18,12 @@ class DiaryDetailPage extends StatelessWidget {
         title: Text(dateFormat.format(diary.date)),
       ),
       body: SafeArea(
-        child: Center(child: DiaryDetails(diary: diary)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DiaryDetails(diary: diary),
+          ],
+        ),
       ),
     );
   }

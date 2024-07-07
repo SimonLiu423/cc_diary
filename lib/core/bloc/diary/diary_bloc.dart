@@ -18,11 +18,10 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
 
   final Dio _dio = Dio();
 
-  final List<Diary> diaries = [];
+  late List<Diary> diaries = [];
 
   FutureOr<void> _onGetDiary(GetDiary event, Emitter<DiaryState> emit) async {
     final response = await _dio.get("$apiUrl/record");
-    List<Diary> diaries = [];
     if (response.statusCode == 200) {
       diaries = List<Diary>.from(
           response.data['content'].map((x) => Diary.fromJson(x)));
@@ -36,6 +35,7 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
 
   FutureOr<void> _onAddDiary(AddDiary event, Emitter<DiaryState> emit) {
     diaries.add(event.diary);
+    diaries.sort((a, b) => b.date.compareTo(a.date));
     emit(DiaryLoaded(diaries));
   }
 }
