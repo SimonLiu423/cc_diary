@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'dart:developer';
+import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,7 +26,7 @@ class DetailPage extends StatelessWidget {
             return loc.schizophreniaSymptom;
           } else if (disorderKey == 'Delusional') {
             return loc.delusionalSymptom;
-          } else if (disorderKey == 'PTSD'){
+          } else if (disorderKey == 'PTSD') {
             return loc.ptsdSymptom;
           }
           return 'No information available';
@@ -40,7 +41,7 @@ class DetailPage extends StatelessWidget {
             return loc.schizophreniaExplanation;
           } else if (disorderKey == 'Delusional') {
             return loc.delusionalExplanation;
-          } else if (disorderKey == 'PTSD'){
+          } else if (disorderKey == 'PTSD') {
             return loc.ptsdExplanation;
           }
           return 'No information available';
@@ -55,7 +56,7 @@ class DetailPage extends StatelessWidget {
             return loc.schizophreniaGroups;
           } else if (disorderKey == 'Delusional') {
             return loc.delusionalGroups;
-          } else if (disorderKey == 'PTSD'){
+          } else if (disorderKey == 'PTSD') {
             return loc.ptsdGroups;
           }
           return 'No information available';
@@ -65,6 +66,7 @@ class DetailPage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: theme().primaryColor,
       appBar: AppBar(
         title: Text(loc
             .informationTitle), // Assuming title is generic or passed dynamically

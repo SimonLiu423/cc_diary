@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'detail.dart'; // Import the DetailPage
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-
 class InfoPage extends StatelessWidget {
   const InfoPage({super.key});
 
@@ -75,8 +73,7 @@ class InfoPage extends StatelessWidget {
                 AppLocalizations.of(context)!.schizophrenia),
           ],
         ),
-        
-      floatingActionButton: FloatingActionButton.extended(
+        floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             // Define navigation behavior
             Navigator.of(context).push(
@@ -90,8 +87,6 @@ class InfoPage extends StatelessWidget {
           backgroundColor: theme().primaryColor, // Adjust color as needed
           foregroundColor: Color.fromARGB(170, 93, 78, 63),
         ),
-
-      
       ),
     );
   }
