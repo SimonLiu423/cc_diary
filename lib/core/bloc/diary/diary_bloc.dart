@@ -23,8 +23,9 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
   FutureOr<void> _onGetDiary(GetDiary event, Emitter<DiaryState> emit) async {
     final response = await _dio.get("$apiUrl/record");
     if (response.statusCode == 200) {
-      diaries = List<Diary>.from(
+      final fetchedDiaries = List<Diary>.from(
           response.data['content'].map((x) => Diary.fromJson(x)));
+      diaries.addAll(fetchedDiaries);
     }
 
     // sort by date
