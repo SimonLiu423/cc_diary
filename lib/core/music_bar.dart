@@ -1,12 +1,26 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:audio_session/audio_session.dart';
 import 'package:cc_diary/core/seek_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MusicBar extends StatefulWidget {
-  const MusicBar({super.key});
+  const MusicBar(
+      {super.key,
+      required this.musicTitle,
+      this.musicPath,
+      this.onTitleClick,
+      this.titleStyle});
+
+  final String musicTitle;
+  final String? musicPath;
+  final VoidCallback? onTitleClick;
+  final TextStyle? titleStyle;
 
   @override
   State<MusicBar> createState() => _MusicBarState();
@@ -14,7 +28,9 @@ class MusicBar extends StatefulWidget {
 
 class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
   final _player = AudioPlayer();
-  late String _music_title = "Loading...";
+  late File _temporaryAudioFile;
+
+  String musicTitle = "Loading...";
 
   @override
   void initState() {
@@ -34,26 +50,31 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
     // Listen to errors during playback.
     _player.playbackEventStream.listen((event) {},
         onError: (Object e, StackTrace stackTrace) {
-      print('A stream error occurred: $e');
+      log('A stream error occurred: $e');
     });
+    _temporaryAudioFile =
+        File('${(await getTemporaryDirectory()).path}/music.mp3');
+
     // Try to load audio from a source and catch any errors.
-    try {
-      // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
-      await _player.setAudioSource(AudioSource.uri(Uri.parse(
-          "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")));
-    } on PlayerException catch (e) {
-      print("Error loading audio source: $e");
+    if (widget.musicPath != null) {
+      log("loading ${widget.musicPath}");
+      try {
+        ByteData data = await rootBundle.load(widget.musicPath!);
+        await _temporaryAudioFile.writeAsBytes(data.buffer.asUint8List());
+        await _player
+            .setAudioSource(AudioSource.file(_temporaryAudioFile.path));
+      } on PlayerException catch (e) {
+        log("Error loading audio source: $e");
+      }
     }
-    setState(() {
-      _music_title = "Music";
-    });
+    setState(() => musicTitle = widget.musicTitle);
   }
 
   @override
   void dispose() {
     ambiguate(WidgetsBinding.instance)!.removeObserver(this);
-    // Release decoders and buffers back to the operating system making them
-    // available for other apps to use.
+
+    _temporaryAudioFile.delete();
     _player.dispose();
     super.dispose();
   }
@@ -78,19 +99,21 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
+  void togglePlay() {
+    if (_player.playing) {
+      _player.pause();
+    } else {
+      _player.play();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (_player.playing) {
-          _player.pause();
-        } else {
-          _player.play();
-        }
-      },
-      child: Row(
-        children: [
-          StreamBuilder<PlayerState>(
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () => togglePlay(),
+          child: StreamBuilder<PlayerState>(
             stream: _player.playerStateStream,
             builder: (context, snapshot) {
               final playing = snapshot.data?.playing;
@@ -101,10 +124,13 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
               }
             },
           ),
-          const SizedBox(width: 10),
-          Text(_music_title),
-        ],
-      ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+            child: GestureDetector(
+                onTap: () => (widget.onTitleClick ?? togglePlay).call(),
+                child: Text(musicTitle, style: widget.titleStyle))),
+      ],
     );
   }
 }
