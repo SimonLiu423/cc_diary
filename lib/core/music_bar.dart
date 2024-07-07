@@ -73,8 +73,7 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
   @override
   void dispose() {
     ambiguate(WidgetsBinding.instance)!.removeObserver(this);
-
-    _temporaryAudioFile.delete();
+    if (_temporaryAudioFile.existsSync()) _temporaryAudioFile.delete();
     _player.dispose();
     super.dispose();
   }
