@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MusicSearch extends StatefulWidget {
-  const MusicSearch({super.key});
+  const MusicSearch({super.key, this.onMusicTitleChange });
+
+  final ValueChanged<String>? onMusicTitleChange;
 
   @override
   State<MusicSearch> createState() => _MusicSearchState();
@@ -71,6 +72,7 @@ class _MusicSearchState extends State<MusicSearch> {
                           musicPath = "audio/${value.value}";
                           searching = false;
                         });
+                        widget.onMusicTitleChange?.call(musicTitle);
                       }),
                 );
               }
