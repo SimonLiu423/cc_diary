@@ -24,7 +24,7 @@ class _LineChart extends StatelessWidget {
         lineBarsData: lineBarsData1,
         backgroundColor: theme().primaryColorDark,
         minX: 1,
-        maxX: 12,
+        maxX: 7,
         maxY: 1,
         minY: -1,
       );
@@ -141,11 +141,12 @@ class _LineChart extends StatelessWidget {
         belowBarData: BarAreaData(show: false),
         spots: const [
           FlSpot(1, 1),
-          FlSpot(3, -1),
-          FlSpot(5, 0.5),
-          FlSpot(7, 0.3),
-          FlSpot(10, 0.11),
-          FlSpot(12, 0.66)
+          FlSpot(2, -1),
+          FlSpot(3, 0.5),
+          FlSpot(4, 0.3),
+          FlSpot(5, 0.11),
+          FlSpot(6, 0.66),
+          FlSpot(7, -0.3)
         ],
       );
   LineChartBarData get lineChartBarData2_1 => LineChartBarData(
@@ -158,11 +159,12 @@ class _LineChart extends StatelessWidget {
         belowBarData: BarAreaData(show: false),
         spots: const [
           FlSpot(1, 1),
-          FlSpot(3, -0.5),
-          FlSpot(5, 0.3),
+          FlSpot(2, -0.5),
+          FlSpot(3, 0.3),
+          FlSpot(4, -0.5),
+          FlSpot(5, -0.8),
+          FlSpot(6, 0.8),
           FlSpot(7, -0.5),
-          FlSpot(10, -0.8),
-          FlSpot(12, 0.8),
         ],
       );
 

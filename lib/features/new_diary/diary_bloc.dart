@@ -34,12 +34,17 @@ class NewDiaryBloc extends Bloc<NewDiaryEvent, NewDiaryState> {
       emit(DiarySaved(
         Diary(
           diaryId: const Uuid().v4(),
-          content: response.data['feedback'],
+          content: event.diaryContent,
           date: DateTime.now(),
           mood: Mood.normal,
           musicTitle: event.musicTitle,
           musicPath: event.musicPath,
-          comments: [],
+          comments: [
+            Comment(
+              content: response.data['feedback'],
+              date: DateTime.now(),
+            ),
+          ],
         ),
       ));
     } else {

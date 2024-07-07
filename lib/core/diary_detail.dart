@@ -2,6 +2,7 @@ import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/core/user_info.dart';
 import 'package:cc_diary/features/me/widgets/comment_block.dart';
+import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -91,6 +92,8 @@ class CommentInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(onTapOutside: (_) => FocusScope.of(context).unfocus());
+    return TextField(
+        decoration: InputDecoration(hintText: l10n(context).comment),
+        onTapOutside: (_) => FocusScope.of(context).unfocus());
   }
 }

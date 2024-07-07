@@ -29,6 +29,9 @@ class _MusicSearchState extends State<MusicSearch> {
       SizedBox(
         height: height,
         child: SearchAnchor(
+          viewConstraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.4),
+          viewBackgroundColor: theme().primaryColorDark,
           searchController: controller,
           isFullScreen: false,
           builder: (BuildContext context, SearchController controller) {
