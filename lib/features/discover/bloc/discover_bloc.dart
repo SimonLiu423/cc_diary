@@ -16,6 +16,7 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
   }
 
   final Dio _dio = Dio();
+  final List<Diary> discoverDiaries = [];
 
   FutureOr<void> _onGetDiscover(
       GetDiscover event, Emitter<DiscoverState> emit) async {
@@ -28,13 +29,20 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
     if (response.statusCode == 200) {
       diaries = List<Diary>.from(
           response.data['content'].map((x) => Diary.fromJson(x)));
+      discoverDiaries.addAll(diaries);
     }
 
-    emit(DiscoverLoaded(diaries));
+    emit(DiscoverLoaded(discoverDiaries));
   }
 
   FutureOr<void> _onSubmitComment(
       SubmitComment event, Emitter<DiscoverState> emit) {
+    emit(DiscoverLoading());
+    discoverDiaries
+        .firstWhere((diary) => diary.diaryId == event.diaryId)
+        .comments
+        .add(Comment(content: event.comment, date: DateTime.now()));
     // submit comment to server
+    emit(DiscoverLoaded(discoverDiaries));
   }
 }

@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:cc_diary/core/diary_detail.dart';
-import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:cc_diary/features/discover/bloc/discover_bloc.dart';
 import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
@@ -20,7 +21,9 @@ class DiscoverPage extends StatelessWidget {
       body: BlocProvider(
         create: (context) => DiscoverBloc()..add(GetDiscover()),
         child: BlocBuilder<DiscoverBloc, DiscoverState>(
+          buildWhen: (previous, current) => current is DiscoverLoaded,
           builder: (context, state) {
+            log('discover loaded');
             if (state is DiscoverLoaded) {
               return PageView.builder(
                 itemCount: state.diaries.length,
@@ -33,7 +36,10 @@ class DiscoverPage extends StatelessWidget {
                         const Center(child: Icon(Icons.chevron_left))
                       else
                         const SizedBox(width: 25),
-                      DiaryDetails(diary: state.diaries[index]),
+                      DiaryDetails(
+                        diary: state.diaries[index],
+                        showInput: true,
+                      ),
                       if (index != state.diaries.length - 1)
                         const Center(child: Icon(Icons.chevron_right))
                       else
