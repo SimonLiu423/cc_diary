@@ -1,15 +1,18 @@
 import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/core/user_info.dart';
+import 'package:cc_diary/features/discover/bloc/discover_bloc.dart';
 import 'package:cc_diary/features/me/widgets/comment_block.dart';
 import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiaryDetails extends StatelessWidget {
-  const DiaryDetails({super.key, required this.diary});
+  const DiaryDetails({super.key, required this.diary, this.showInput = false});
 
   final Diary diary;
+  final bool showInput;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class DiaryDetails extends StatelessWidget {
                 musicPath: diary.musicPath),
             const SizedBox(height: 16),
             DiaryDetailBody(diary: diary),
-            const CommentInput(),
+            if (showInput) CommentInput(diaryId: diary.diaryId),
             DiaryComment(comment: diary.comments[0], idx: 0),
             ...diary.comments
                 .sublist(1)
@@ -111,12 +114,17 @@ class _DiaryDetailBodyState extends State<DiaryDetailBody> {
 }
 
 class CommentInput extends StatelessWidget {
-  const CommentInput({super.key});
+  const CommentInput({super.key, required this.diaryId});
+
+  final String diaryId;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
         decoration: InputDecoration(hintText: l10n(context).comment),
-        onTapOutside: (_) => FocusScope.of(context).unfocus());
+        onTapOutside: (_) => FocusScope.of(context).unfocus(),
+        onSubmitted: (comment) {
+          context.read<DiscoverBloc>().add(SubmitComment(diaryId, comment));
+        });
   }
 }

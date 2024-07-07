@@ -21,7 +21,7 @@ class CommentBlock extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Text(comment.content, style: const TextStyle(fontSize: 14))),
+            child: Text(comment.content, style: const TextStyle(fontSize: 16))),
       ],
     );
   }
