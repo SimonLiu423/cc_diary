@@ -1,12 +1,11 @@
 import 'dart:developer';
 import 'package:cc_diary/core/api.dart';
+import 'package:cc_diary/theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
-
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chatroom',
       theme: ThemeData(
+        canvasColor: theme().primaryColor,
         primarySwatch: Colors.blue,
       ),
       home: const ChatPage(),
@@ -99,8 +99,13 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.chatBot)), //AppLocalizations.of(context)!.chatBot
+          title: Text(AppLocalizations.of(context)!
+              .chatBot)), //AppLocalizations.of(context)!.chatBot
       body: Chat(
+        theme: DefaultChatTheme(
+            backgroundColor: theme().primaryColor,
+            inputBackgroundColor: theme().secondaryHeaderColor,
+            inputTextColor: Colors.black),
         messages: _messages,
         onSendPressed: _handleSendPressed,
         user: _user,

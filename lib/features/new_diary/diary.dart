@@ -21,7 +21,9 @@ class DiaryPage extends StatefulWidget {
 
 class _DiaryPageState extends State<DiaryPage> {
   final TextEditingController userInput = TextEditingController();
+  static Color interactiveColor = Colors.brown;
   String? musicTitle;
+  double sliderValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -81,39 +83,49 @@ class _DiaryPageState extends State<DiaryPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () => {},
-                                  icon: const Icon(
-                                      CupertinoIcons.hand_thumbsdown)),
-                              IconButton(
-                                  onPressed: () => {},
-                                  icon: const Icon(CupertinoIcons.smiley)),
-                            ],
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      height: 50,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            height: 30,
+                            'images/sad.png',
                           ),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              if (musicTitle == null ||
-                                  userInput.text.isEmpty) {
-                                return;
-                              }
-                              context.read<NewDiaryBloc>().add(SaveDiary(
-                                  Localizations.localeOf(context).toString(),
-                                  musicTitle!,
-                                  userInput.text,
-                                  1));
-                            },
-                            style: TextButton.styleFrom(
-                                backgroundColor: theme().secondaryHeaderColor),
-                            child: Text(l10n(context).newDiary_save,
-                                style: const TextStyle(color: Colors.white))),
-                      ],
+                          Slider(
+                            activeColor: interactiveColor,
+                            inactiveColor: Colors.brown.shade100,
+                            value: sliderValue,
+                            onChanged: (value) => setState(() {
+                              sliderValue = value;
+                            }),
+                            min: -1,
+                            max: 1,
+                            divisions: 100,
+                          ),
+                          Image.asset(
+                            height: 30,
+                            'images/happy.png',
+                          ),
+                          const Expanded(child: SizedBox()),
+                          TextButton(
+                              onPressed: () {
+                                if (musicTitle == null ||
+                                    userInput.text.isEmpty) {
+                                  return;
+                                }
+                                context.read<NewDiaryBloc>().add(SaveDiary(
+                                    Localizations.localeOf(context).toString(),
+                                    musicTitle!,
+                                    userInput.text,
+                                    1));
+                              },
+                              style: TextButton.styleFrom(
+                                  backgroundColor: interactiveColor),
+                              child: Text(l10n(context).newDiary_save,
+                                  style: const TextStyle(color: Colors.white))),
+                        ],
+                      ),
                     ),
                   ],
                 );

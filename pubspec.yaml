@@ -74,12 +74,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/Depression.png
-    - images/Bipolar.png
-    - images/Anxiety.png
-    - images/PTSD.png
-    - images/Delusional.png
-    - images/Schizophrenia.png
+    - images/
     - audio/
   #   - images/a_dot_ham.jpeg
 
