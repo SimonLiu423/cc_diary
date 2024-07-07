@@ -1,1 +1,1 @@
-const apiUrl = "http://192.168.235.3:5000";
+const apiUrl = "http://wavjaby.nckuctf.org:25569";
