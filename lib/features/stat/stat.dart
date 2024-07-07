@@ -1,13 +1,18 @@
 import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
-class _LineChart extends StatelessWidget {
+class _LineChart extends StatefulWidget {
   const _LineChart({required this.isShowingMainData});
 
   final bool isShowingMainData;
 
+  @override
+  State<_LineChart> createState() => _LineChartState();
+}
+
+class _LineChartState extends State<_LineChart> {
   @override
   Widget build(BuildContext context) {
     return LineChart(
@@ -38,9 +43,9 @@ class _LineChart extends StatelessWidget {
 
   FlTitlesData get titlesData1 => FlTitlesData(
         bottomTitles: AxisTitles(
-          axisNameWidget: const Text(
-            '日期',
-            style: TextStyle(
+          axisNameWidget: Text(
+            l10n(context).date,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -55,9 +60,9 @@ class _LineChart extends StatelessWidget {
           sideTitles: SideTitles(showTitles: false),
         ),
         leftTitles: AxisTitles(
-          axisNameWidget: const Text(
-            '心情指數',
-            style: TextStyle(
+          axisNameWidget: Text(
+            l10n(context).moodIndex,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -149,6 +154,7 @@ class _LineChart extends StatelessWidget {
           FlSpot(7, -0.3)
         ],
       );
+
   LineChartBarData get lineChartBarData2_1 => LineChartBarData(
         isCurved: false,
         // curveSmoothness: 0,

@@ -48,8 +48,9 @@
     "moodPlot": "情緒折線圖",
     "anonymous": "匿名",
     "you": "你",
-    "moodIndex": "情緒指標",
     "loading": "載入中...",
     "comment": "留言...",
-    "chatBot": "心靈聊天諮詢室"
+    "chatBot": "心靈聊天諮詢室",
+    "date":"日期",
+    "moodIndex":"心情指數"
 }

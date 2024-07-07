@@ -1,4 +1,6 @@
 # CC Diary
+Capture Your moments, Cultivate Insights
+
 
 ## 競賽議題 & 子議題
 - **團隊名稱**： 不嘻嘻的時候，黑客松松澤

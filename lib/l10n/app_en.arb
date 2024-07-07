@@ -45,11 +45,12 @@
     "ptsdExplanation": "Common symptoms include insomnia, nightmares, recurrent flashbacks to the traumatic event, accompanied by severe physical discomfort such as palpitations, chest tightness, and trembling, feeling as though they are reliving the moment. Anxiety, dissociation, depression, and even thoughts of death, suicidal ideation, and suicidal behavior are also prevalent.\nIf these symptoms do not diminish over time, and if nightmares and recurrent memories persist, accompanied by ongoing anxiety and severe physical discomfort, if feelings of depression and guilt do not lessen, or even if there is emotional numbness, indifference to life, cynicism, and uncontrollable rage, it is advised that the affected individual seek medical attention promptly. Early medical intervention can minimize psychological damage and aid in the journey toward recovery.",
     "ptsdGroups": "Individuals who have experienced or witnessed significant traumatic events are at risk, regardless of their age.",
     "newDiary_close": "Close",
-    "moodPlot": "Mood Plot",
+    "moodPlot": "Emotional Curve",
     "anonymous": "Anonymous",
     "you": "You",
-    "moodIndex": "Mood Index",
     "loading": "Loading...",
     "comment": "Comment...",
-    "chatBot": "Mental Health Assistance"
+    "chatBot": "Mental Health Assistance",
+    "date":"Date",
+    "moodIndex":"Mood Index"
 }
