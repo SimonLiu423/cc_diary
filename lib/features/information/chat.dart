@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cc_diary/core/api.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
@@ -63,7 +64,7 @@ class _ChatPageState extends State<ChatPage> {
     log(Localizations.localeOf(context).toString());
     try {
       final response = await _dio.post(
-        'http://192.168.235.3:5000/query', // Replace with your server URL
+        '$apiUrl/query', // Replace with your server URL
         data: {
           'question': text,
           'language': Localizations.localeOf(context).toString()
