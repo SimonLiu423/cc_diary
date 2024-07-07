@@ -36,6 +36,8 @@ class _MusicSearchState extends State<MusicSearch> {
           isFullScreen: false,
           builder: (BuildContext context, SearchController controller) {
             return SearchBar(
+              backgroundColor: WidgetStatePropertyAll(theme().primaryColorDark),
+              elevation: const WidgetStatePropertyAll(3),
               enabled: searching,
               textStyle: const WidgetStatePropertyAll(titleStyle),
               controller: controller,
