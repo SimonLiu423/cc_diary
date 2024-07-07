@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-enum UserType { me, other }
+enum UserType { me, other, ai }
 
 class UserInfo extends StatelessWidget {
   const UserInfo.me(
@@ -14,6 +14,10 @@ class UserInfo extends StatelessWidget {
       {super.key, required this.uploadedAt, this.showTimePassed = false})
       : sizeFactor = 0.85,
         userType = UserType.other;
+  const UserInfo.ai(
+      {super.key, required this.uploadedAt, this.showTimePassed = false})
+      : sizeFactor = 0.85,
+        userType = UserType.ai;
 
   final UserType userType;
   final DateTime uploadedAt;
@@ -23,16 +27,31 @@ class UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String timeText = '';
+    String userText = '';
     if (showTimePassed) {
       timeText = getTimePassed(context, uploadedAt);
     } else {
       timeText = DateFormat('yyyy-MM-dd').format(uploadedAt);
     }
 
+    switch (userType) {
+      case UserType.me:
+        userText = l10n(context).you;
+        break;
+      case UserType.other:
+        userText = l10n(context).anonymous;
+        break;
+      case UserType.ai:
+        userText = 'AI';
+        break;
+    }
+
     return Row(
       children: [
         Icon(
-          CupertinoIcons.person_alt_circle_fill,
+          userType == UserType.ai
+              ? Icons.computer
+              : CupertinoIcons.person_alt_circle_fill,
           size: 50 * sizeFactor,
         ),
         const SizedBox(width: 10),
@@ -40,9 +59,7 @@ class UserInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              userType == UserType.me
-                  ? l10n(context).you
-                  : l10n(context).anonymous,
+              userText,
               style: TextStyle(fontSize: 20 * sizeFactor),
             ),
             Text(

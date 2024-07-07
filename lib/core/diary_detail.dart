@@ -19,16 +19,17 @@ class DiaryDetails extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 12),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            DiaryDetailHeader(uploadedAt: diary.date, musicTitle: diary.musicTitle, musicPath: diary.musicPath),
+            DiaryDetailHeader(
+                uploadedAt: diary.date,
+                musicTitle: diary.musicTitle,
+                musicPath: diary.musicPath),
             const SizedBox(height: 16),
             DiaryDetailBody(diary: diary),
             const CommentInput(),
-            ...diary.comments.map((comment) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: CommentBlock(
-                    comment: comment,
-                  ),
-                ))
+            DiaryComment(comment: diary.comments[0], idx: 0),
+            ...diary.comments
+                .sublist(1)
+                .map((comment) => DiaryComment(comment: comment, idx: 1)),
           ]),
         ),
       ),
@@ -36,9 +37,30 @@ class DiaryDetails extends StatelessWidget {
   }
 }
 
+class DiaryComment extends StatelessWidget {
+  const DiaryComment({super.key, required this.comment, required this.idx});
+
+  final Comment comment;
+  final int idx;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: CommentBlock(
+        comment: comment,
+        isAI: idx == 0,
+      ),
+    );
+  }
+}
+
 class DiaryDetailHeader extends StatelessWidget {
   const DiaryDetailHeader(
-      {super.key, required this.uploadedAt, required this.musicTitle, required this.musicPath});
+      {super.key,
+      required this.uploadedAt,
+      required this.musicTitle,
+      required this.musicPath});
 
   final String musicTitle, musicPath;
   final DateTime uploadedAt;
@@ -51,7 +73,8 @@ class DiaryDetailHeader extends StatelessWidget {
       Container(
           constraints:
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 3),
-          child: MusicBar(musicTitle: musicTitle, musicPath: musicPath, autoplay: true)),
+          child: MusicBar(
+              musicTitle: musicTitle, musicPath: musicPath, autoplay: true)),
     ]);
   }
 }
