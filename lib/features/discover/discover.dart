@@ -11,7 +11,6 @@ class DiscoverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final diaries = randomDiaries();
     return Scaffold(
       backgroundColor: theme().primaryColor,
       appBar: AppBar(
@@ -22,10 +21,10 @@ class DiscoverPage extends StatelessWidget {
         create: (context) => DiscoverBloc()..add(GetDiscover()),
         child: BlocBuilder<DiscoverBloc, DiscoverState>(
           builder: (context, state) {
-            return PageView.builder(
-              itemCount: diaries.length,
-              itemBuilder: (context, index) {
-                if (state is DiscoverLoaded) {
+            if (state is DiscoverLoaded) {
+              return PageView.builder(
+                itemCount: state.diaries.length,
+                itemBuilder: (context, index) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -41,10 +40,10 @@ class DiscoverPage extends StatelessWidget {
                         const SizedBox(width: 25),
                     ],
                   );
-                }
-                return const Center(child: CircularProgressIndicator());
-              },
-            );
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),
