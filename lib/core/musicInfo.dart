@@ -1,3 +1,5 @@
+import 'dart:math';
+
 final musicInfo = {
   "ANGOSTURA": "ANGOSTURA.mp3",
   "GABRIEL": "GABRIEL.mp3",
@@ -9,3 +11,9 @@ final musicInfo = {
   "SOMEBODY": "SOMEBODY.mp3",
   "WESTSIDE": "WESTSIDE.mp3"
 };
+
+MapEntry<String, String> randomMusicInfo() {
+  final keys = musicInfo.keys.toList();
+  final randomIndex = Random().nextInt(keys.length);
+  return MapEntry(keys[randomIndex], musicInfo[keys[randomIndex]]!);
+}
