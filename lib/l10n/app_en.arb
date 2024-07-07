@@ -46,7 +46,9 @@
     "ptsdGroups":"Individuals who have experienced or witnessed significant traumatic events are at risk, regardless of their age.",
     "newDiary_close": "Close",
     "moodPlot": "Mood Plot",
+    "anonymous": "Anonymous",
+    "you": "You",
+    "moodIndex": "Mood Index",
     "loading": "Loading...",
-    "chatBot":"Mental Health Assistance",
-    "anonymous": "Anonymous"
+    "chatBot":"Mental Health Assistance"
 }

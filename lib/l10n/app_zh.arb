@@ -46,7 +46,9 @@
     "ptsdGroups":"遭逢或目睹重大事故者，無論年紀都有可能得病",
     "newDiary_close": "關閉",
     "moodPlot": "情緒折線圖",
+    "anonymous": "匿名",
+    "you": "你",
+    "moodIndex": "情緒指標",
     "loading": "載入中...",
-    "chatBot":"心靈聊天諮詢室",
-    "anonymous": "匿名"
+    "chatBot":"心靈聊天諮詢室"
 }

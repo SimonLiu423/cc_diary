@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 part 'diary_event.dart';
 part 'diary_state.dart';
@@ -16,21 +17,22 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
   final List<Diary> diaries = [];
 
   FutureOr<void> _onGetDiary(GetDiary event, Emitter<DiaryState> emit) {
-    // final List<Diary> diaries = List.generate(
-    //   10,
-    //   (index) => Diary(
-    //       content: randomStrings[index],
-    //       date: randomDates[index],
-    //       mood: randomMoods[index],
-    //       songId: "123456789",
-    //       comments: [
-    //         Comment(content: "I am a good boy", date: DateTime.now()),
-    //         Comment(content: "I am a good girl", date: DateTime.now()),
-    //         Comment(content: "I am a good man", date: DateTime.now()),
-    //         Comment(content: "I am a good woman", date: DateTime.now()),
-    //         Comment(content: "I am a good friend", date: DateTime.now()),
-    //       ]),
-    // );
+    final List<Diary> diaries = List.generate(
+      10,
+      (index) => Diary(
+          diaryId: const Uuid().v4(),
+          content: randomStrings[index],
+          date: randomDates[index],
+          mood: randomMoods[index],
+          songId: "123456789",
+          comments: [
+            Comment(content: "I am a good boy", date: DateTime.now()),
+            Comment(content: "I am a good girl", date: DateTime.now()),
+            Comment(content: "I am a good man", date: DateTime.now()),
+            Comment(content: "I am a good woman", date: DateTime.now()),
+            Comment(content: "I am a good friend", date: DateTime.now()),
+          ]),
+    );
     emit(DiaryLoaded(diaries));
   }
 

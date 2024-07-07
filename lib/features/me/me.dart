@@ -24,9 +24,9 @@ class MePage extends StatelessWidget {
               if (state is DiaryLoaded) {
                 return Timeline.tileBuilder(
                   theme: TimelineThemeData(
-                      color: theme().secondaryHeaderColor,
+                      color: theme().primaryColorDark,
                       nodePosition: 0.15,
-                      indicatorPosition: 0.1),
+                      indicatorPosition: 0.5),
                   builder: TimelineTileBuilder.fromStyle(
                     indicatorStyle: IndicatorStyle.dot,
                     connectorStyle: ConnectorStyle.solidLine,
@@ -51,7 +51,7 @@ class MePage extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              bottom: 32.0, left: 14, right: 14),
+                              top: 16, bottom: 16.0, left: 14, right: 14),
                           child: DiaryPreview(diary: state.diaries[index]),
                         ),
                       );
