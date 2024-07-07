@@ -12,7 +12,7 @@ class DiaryPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const MusicBar(musicTitle: "Music"),
+        MusicBar(musicTitle: diary.musicTitle, musicPath: diary.musicPath),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14.0),

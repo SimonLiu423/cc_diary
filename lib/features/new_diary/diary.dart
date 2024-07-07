@@ -21,8 +21,8 @@ class DiaryPage extends StatefulWidget {
 
 class _DiaryPageState extends State<DiaryPage> {
   final TextEditingController userInput = TextEditingController();
+  String? musicTitle, musicPath;
   static Color interactiveColor = Colors.brown;
-  String? musicTitle;
   double sliderValue = 0;
 
   @override
@@ -57,8 +57,10 @@ class _DiaryPageState extends State<DiaryPage> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MusicSearch(
-                        onMusicTitleChange: (title) => musicTitle = title),
+                    MusicSearch(onMusicChange: (title, path) {
+                      musicTitle = title;
+                      musicPath = path;
+                    }),
                     const SizedBox(height: 30),
                     Container(
                       height: 300,

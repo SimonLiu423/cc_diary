@@ -2,10 +2,12 @@ import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
 
-class MusicSearch extends StatefulWidget {
-  const MusicSearch({super.key, this.onMusicTitleChange});
+import 'musicInfo.dart';
 
-  final ValueChanged<String>? onMusicTitleChange;
+class MusicSearch extends StatefulWidget {
+  const MusicSearch({super.key, this.onMusicChange});
+
+  final void Function(String musicTitle, String musicPath)? onMusicChange;
 
   @override
   State<MusicSearch> createState() => _MusicSearchState();
@@ -45,20 +47,8 @@ class _MusicSearchState extends State<MusicSearch> {
           },
           suggestionsBuilder:
               (BuildContext context, SearchController controller) {
-            var music = {
-              "ANGOSTURA": "ANGOSTURA.mp3",
-              "GABRIEL": "GABRIEL.mp3",
-              "GET IT": "GET IT.mp3",
-              "HELL/HEAVEN": "HELL_HEAVEN.mp3",
-              "LIMBO": "LIMBO.mp3",
-              "MILLI": "MILLI.mp3",
-              "PERE": "PÈRE.mp3",
-              "SOMEBODY": "SOMEBODY.mp3",
-              "WESTSIDE": "WESTSIDE.mp3"
-            };
-
             List<ListTile> list = [];
-            for (var value in music.entries) {
+            for (var value in musicInfo.entries) {
               if (value.key
                   .toUpperCase()
                   .contains(controller.text.toUpperCase())) {
@@ -68,12 +58,11 @@ class _MusicSearchState extends State<MusicSearch> {
                       onTap: () {
                         controller.closeView(value.key);
                         setState(() {
-                          musicTitle =
-                              value.value.substring(0, value.value.length - 4);
-                          musicPath = "audio/${value.value}";
+                          musicTitle = value.key;
+                          musicPath = value.value;
                           searching = false;
                         });
-                        widget.onMusicTitleChange?.call(musicTitle);
+                        widget.onMusicChange?.call(musicTitle, musicPath!);
                       }),
                 );
               }
@@ -91,7 +80,7 @@ class _MusicSearchState extends State<MusicSearch> {
               borderRadius: BorderRadius.circular(height)),
           child: MusicBar(
               musicTitle: musicTitle,
-              musicPath: musicPath,
+              musicPath: musicPath!,
               onTitleClick: () {
                 setState(() => searching = true);
                 controller.openView();
