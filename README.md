@@ -1,8 +1,3 @@
----
-title: SITCON Hackathon 2024 專案 README 模板
-tags: SITCON Hackathon 2024, SITCON,  Hackathon , 2024 ,
-GA: 
----
 # CC Diary
 
 ## 競賽議題 & 子議題
