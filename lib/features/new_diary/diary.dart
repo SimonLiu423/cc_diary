@@ -119,6 +119,7 @@ class _DiaryPageState extends State<DiaryPage> {
                                 context.read<NewDiaryBloc>().add(SaveDiary(
                                     Localizations.localeOf(context).toString(),
                                     musicTitle!,
+                                    musicPath!,
                                     userInput.text,
                                     1));
                               },
