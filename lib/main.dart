@@ -93,6 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             bottomNavigationBar: ConvexAppBar(
               controller: _tabController,
               backgroundColor: theme().appBarTheme.backgroundColor,
+              color: Colors.black,
               style: TabStyle.react,
               items: [
                 TabItem(

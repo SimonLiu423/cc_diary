@@ -1,5 +1,6 @@
 import 'package:cc_diary/core/bloc/diary/diary_bloc.dart';
 import 'package:cc_diary/core/loading_dialog.dart';
+import 'package:cc_diary/core/model/diary_m.dart';
 import 'package:cc_diary/l10n.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,6 +26,7 @@ class _DiaryPageState extends State<DiaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme().primaryColor,
       appBar: AppBar(
         title: Text(l10n(context).myDiaryPageTitle),
       ),
@@ -46,25 +48,7 @@ class _DiaryPageState extends State<DiaryPage> {
                   // add the result to the local bloc
                   context.read<DiaryBloc>().add(AddDiary(state.diary));
                   // show AI result
-                  showDialog(
-                    context: context,
-                    builder: (_) => Dialog(
-                      // backgroundColor: const Color.fromARGB(150, 50, 50, 50),
-                      backgroundColor: theme().primaryColor,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(children: [
-                          Expanded(
-                              child: Text(state.diary.content,
-                                  style: const TextStyle(
-                                      fontSize: 20, color: Colors.white))),
-                          TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(l10n(context).newDiary_close)),
-                        ]),
-                      ),
-                    ),
-                  ).then((value) => context.read<TabController>().animateTo(3));
+                  showAIResponse(context, state.diary);
                 }
               },
               builder: (context, state) {
@@ -73,24 +57,27 @@ class _DiaryPageState extends State<DiaryPage> {
                   children: [
                     MusicSearch(
                         onMusicTitleChange: (title) => musicTitle = title),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 30),
                     Container(
                       height: 300,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Colors.black38),
-                      child: TextField(
-                        maxLines: null,
-                        minLines: null,
-                        scrollController: ScrollController(),
-                        controller: userInput,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          hintText: l10n(context).newDiary_writeAreaHint,
-                          border: InputBorder.none,
-                          hintStyle: const TextStyle(color: Colors.black26),
+                          color: theme().primaryColorDark),
+                      child: Scrollbar(
+                        child: TextField(
+                          onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                          maxLines: null,
+                          minLines: null,
+                          scrollController: ScrollController(),
+                          controller: userInput,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                            hintText: l10n(context).newDiary_writeAreaHint,
+                            border: InputBorder.none,
+                            hintStyle: const TextStyle(color: Colors.black26),
+                          ),
                         ),
                       ),
                     ),
@@ -123,7 +110,7 @@ class _DiaryPageState extends State<DiaryPage> {
                                   1));
                             },
                             style: TextButton.styleFrom(
-                                backgroundColor: Colors.red),
+                                backgroundColor: theme().secondaryHeaderColor),
                             child: Text(l10n(context).newDiary_save,
                                 style: const TextStyle(color: Colors.white))),
                       ],
@@ -137,4 +124,37 @@ class _DiaryPageState extends State<DiaryPage> {
       ),
     );
   }
+}
+
+Future<void> showAIResponse(BuildContext context, Diary diary) async {
+  showDialog(
+    context: context,
+    builder: (_) => Dialog(
+      // backgroundColor: const Color.fromARGB(150, 50, 50, 50),
+      backgroundColor: theme().primaryColor,
+      child: Container(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+        padding: const EdgeInsets.all(10),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Text(diary.comments.first.content,
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black)),
+                ),
+              ),
+            ),
+          ),
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(l10n(context).newDiary_close)),
+        ]),
+      ),
+    ),
+  ).then((value) => context.read<TabController>().animateTo(3));
 }

@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:cc_diary/core/music_bar.dart';
 import 'package:cc_diary/theme.dart';
 import 'package:flutter/material.dart';
 
 class MusicSearch extends StatefulWidget {
-  const MusicSearch({super.key, this.onMusicTitleChange });
+  const MusicSearch({super.key, this.onMusicTitleChange});
 
   final ValueChanged<String>? onMusicTitleChange;
 
@@ -29,6 +27,9 @@ class _MusicSearchState extends State<MusicSearch> {
       SizedBox(
         height: height,
         child: SearchAnchor(
+          viewConstraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.4),
+          viewBackgroundColor: theme().primaryColorDark,
           searchController: controller,
           isFullScreen: false,
           builder: (BuildContext context, SearchController controller) {
