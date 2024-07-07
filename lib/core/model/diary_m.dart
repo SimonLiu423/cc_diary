@@ -15,6 +15,11 @@ class Comment extends Equatable {
 
   @override
   List<Object?> get props => [content, date];
+
+  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+        content: json['description'],
+        date: DateTime.parse(json['time']),
+      );
 }
 
 class Diary extends Equatable {
@@ -35,6 +40,16 @@ class Diary extends Equatable {
 
   @override
   List<Object?> get props => [diaryId, content, date, mood, songId, comments];
+
+  factory Diary.fromJson(Map<String, dynamic> json) => Diary(
+        diaryId: const Uuid().v4(),
+        content: json['diary'],
+        date: DateTime.parse(json['date']),
+        mood: randomMoods[0],
+        songId: '',
+        comments:
+            List<Comment>.from(json['message'].map((x) => Comment.fromJson(x))),
+      );
 }
 
 List<Diary> randomDiaries({length = 10}) {
