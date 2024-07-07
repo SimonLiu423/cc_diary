@@ -24,7 +24,8 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
           content: randomStrings[index],
           date: randomDates[index],
           mood: randomMoods[index],
-          songId: "123456789",
+          musicTitle: randomMusicTitle[index],
+          musicPath: randomMusicPath[index],
           comments: [
             Comment(content: "I am a good boy", date: DateTime.now()),
             Comment(content: "I am a good girl", date: DateTime.now()),

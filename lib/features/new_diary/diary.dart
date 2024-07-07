@@ -20,7 +20,7 @@ class DiaryPage extends StatefulWidget {
 
 class _DiaryPageState extends State<DiaryPage> {
   final TextEditingController userInput = TextEditingController();
-  String? musicTitle;
+  String? musicTitle, musicPath;
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +71,10 @@ class _DiaryPageState extends State<DiaryPage> {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MusicSearch(
-                        onMusicTitleChange: (title) => musicTitle = title),
+                    MusicSearch(onMusicChange: (title, path) {
+                      musicTitle = title;
+                      musicPath = path;
+                    }),
                     const SizedBox(height: 10),
                     Container(
                       height: 300,
@@ -119,6 +121,7 @@ class _DiaryPageState extends State<DiaryPage> {
                               context.read<NewDiaryBloc>().add(SaveDiary(
                                   Localizations.localeOf(context).toString(),
                                   musicTitle!,
+                                  musicPath!,
                                   userInput.text,
                                   1));
                             },

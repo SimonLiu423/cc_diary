@@ -8,12 +8,13 @@ sealed class NewDiaryEvent extends Equatable {
 }
 
 class SaveDiary extends NewDiaryEvent {
-  final String songId;
+  final String musicTitle;
+  final String musicPath;
   final String diaryContent;
   final int ccState; // 1 ~ 5
   final String language;
 
-  const SaveDiary(this.language, this.songId, this.diaryContent, this.ccState);
+  const SaveDiary(this.language, this.musicTitle, this.musicPath, this.diaryContent, this.ccState);
 
   @override
   List<Object> get props => [];
