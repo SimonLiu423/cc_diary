@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:cc_diary/core/api.dart';
 import 'package:cc_diary/core/model/diary_m.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
 
 part 'diary_event.dart';
 part 'diary_state.dart';
@@ -14,26 +16,21 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
     on<AddDiary>(_onAddDiary);
   }
 
+  final Dio _dio = Dio();
+
   final List<Diary> diaries = [];
 
-  FutureOr<void> _onGetDiary(GetDiary event, Emitter<DiaryState> emit) {
-    final List<Diary> diaries = List.generate(
-      10,
-      (index) => Diary(
-          diaryId: const Uuid().v4(),
-          content: randomStrings[index],
-          date: randomDates[index],
-          mood: randomMoods[index],
-          musicTitle: randomMusicTitle[index],
-          musicPath: randomMusicPath[index],
-          comments: [
-            Comment(content: "I am a good boy", date: DateTime.now()),
-            Comment(content: "I am a good girl", date: DateTime.now()),
-            Comment(content: "I am a good man", date: DateTime.now()),
-            Comment(content: "I am a good woman", date: DateTime.now()),
-            Comment(content: "I am a good friend", date: DateTime.now()),
-          ]),
-    );
+  FutureOr<void> _onGetDiary(GetDiary event, Emitter<DiaryState> emit) async {
+    final response = await _dio.get("$apiUrl/record");
+    List<Diary> diaries = [];
+    if (response.statusCode == 200) {
+      diaries = List<Diary>.from(
+          response.data['content'].map((x) => Diary.fromJson(x)));
+    }
+
+    // sort by date
+    diaries.sort((a, b) => b.date.compareTo(a.date));
+
     emit(DiaryLoaded(diaries));
   }
 
