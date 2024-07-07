@@ -18,7 +18,7 @@ class DiaryDetails extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 12),
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            DiaryDetailHeader(uploadedAt: diary.date),
+            DiaryDetailHeader(uploadedAt: diary.date, musicTitle: diary.songId),
             const SizedBox(height: 16),
             DiaryDetailBody(diary: diary),
             const CommentInput(),
@@ -36,8 +36,10 @@ class DiaryDetails extends StatelessWidget {
 }
 
 class DiaryDetailHeader extends StatelessWidget {
-  const DiaryDetailHeader({super.key, required this.uploadedAt});
+  const DiaryDetailHeader(
+      {super.key, required this.uploadedAt, required this.musicTitle});
 
+  final String musicTitle;
   final DateTime uploadedAt;
 
   @override
@@ -48,7 +50,7 @@ class DiaryDetailHeader extends StatelessWidget {
       Container(
           constraints:
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 3),
-          child: const MusicBar()),
+          child: MusicBar(musicTitle: musicTitle)),
     ]);
   }
 }
