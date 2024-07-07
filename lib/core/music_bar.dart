@@ -13,14 +13,16 @@ class MusicBar extends StatefulWidget {
   const MusicBar(
       {super.key,
       required this.musicTitle,
-      this.musicPath,
+      required this.musicPath,
       this.onTitleClick,
+      this.autoplay = false,
       this.titleStyle});
 
   final String musicTitle;
-  final String? musicPath;
+  final String musicPath;
   final VoidCallback? onTitleClick;
   final TextStyle? titleStyle;
+  final bool autoplay;
 
   @override
   State<MusicBar> createState() => _MusicBarState();
@@ -53,21 +55,21 @@ class _MusicBarState extends State<MusicBar> with WidgetsBindingObserver {
       log('A stream error occurred: $e');
     });
     _temporaryAudioFile =
-        File('${(await getTemporaryDirectory()).path}/music.mp3');
+        File('${(await getTemporaryDirectory()).path}/${widget.musicPath}');
 
     // Try to load audio from a source and catch any errors.
-    if (widget.musicPath != null) {
-      log("loading ${widget.musicPath}");
-      try {
-        ByteData data = await rootBundle.load(widget.musicPath!);
-        await _temporaryAudioFile.writeAsBytes(data.buffer.asUint8List());
-        await _player
-            .setAudioSource(AudioSource.file(_temporaryAudioFile.path));
-      } on PlayerException catch (e) {
-        log("Error loading audio source: $e");
-      }
+    log("loading ${widget.musicPath}");
+    try {
+      ByteData data = await rootBundle.load('audio/${widget.musicPath}');
+      await _temporaryAudioFile.writeAsBytes(data.buffer.asUint8List());
+      await _player.setAudioSource(AudioSource.file(_temporaryAudioFile.path));
+    } on PlayerException catch (e) {
+      log("Error loading audio source: $e");
     }
     setState(() => musicTitle = widget.musicTitle);
+    if(widget.autoplay) {
+      _player.play();
+    }
   }
 
   @override

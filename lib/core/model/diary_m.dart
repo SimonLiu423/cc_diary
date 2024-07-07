@@ -1,3 +1,4 @@
+import 'package:cc_diary/core/musicInfo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,14 +29,16 @@ class Diary extends Equatable {
       required this.content,
       required this.date,
       required this.mood,
-      required this.songId,
+      required this.musicTitle,
+      required this.musicPath,
       required this.comments});
 
   final String diaryId;
   final String content;
   final DateTime date;
   final Mood mood;
-  final String songId;
+  final String musicTitle;
+  final String musicPath;
   final List<Comment> comments;
 
   @override
@@ -60,7 +63,8 @@ List<Diary> randomDiaries({length = 10}) {
         content: randomStrings[index],
         date: randomDates[index],
         mood: randomMoods[index],
-        songId: "123456789",
+        musicTitle: randomMusicTitle[index],
+        musicPath: randomMusicPath[index],
         comments: [
           Comment(content: "I am a good boy", date: DateTime.now()),
           Comment(content: "I am a good girl", date: DateTime.now()),
@@ -72,8 +76,7 @@ List<Diary> randomDiaries({length = 10}) {
 }
 
 final randomStrings = [
-  "The query string you provided, username[]=admin&password=aaa, is an example of how data might be sent to a server as part of an HTTP GET or POST request, typically through a URL or form submission. Here’s how this data would be interpreted, especially focusing on the usage of username[] in the context of URL encoding and how Express.js handles it with express.urlencoded({ extended: false }	username[]=admin: This suggests that the username is intended to be an array with a single value, “admin”. In URL-encoded form data, appending [] to the parameter name indicates that this parameter should be treated as an array. This can be used when you expect multiple values for the same parameter, and want to ensure they are correctly parsed as an array even if only one value is sent.password=aaa: This is a straightforward key-value pair, where “password” is the key and “aaa” is the value.How Express.js Handles This:When using express.urlencoded({ extended: false }):Array Parsing: The setting extended: false uses the querystring library to parse incoming request bodies. This library automatically handles the conversion of username[] into an array, so if the form were submitted with multiple username[] entries, they would all be gathered into an array under the username key in the req.body object. Even with extended: false, the [] notation causes the values to be parsed as an array, which is standard behavior across many web frameworks.Data Access: In your Express application, you can access these values from the req.body object like so:",
-  ";asldfja;slfjhsa;ildfja;slidfjo;wieur9023io;rwjfshlb09i8uytrewsdfghjuikjhgfdszxcvbnm,lkjhgfdsaqwertyuiop0987654321qwertyuiolkjhgfdsazxcvbnm,lkjhgfdsaqwertyuiop0987654321qwertyuiolkjhgfdsazxcvbnm,lkjhgfdsdrtyuiopoi76543wertyuiolkfdsxcvbn",
+  "今天又是拖延的一天。每次當我面對需要完成的任務時，總是覺得有一種無形的壓力，讓我不由自主地想逃避。我知道自己應該要寫那份報告，或是準備即將到來的考試，但每當我坐下來，心裡就開始找藉口，告訴自己「休息一下也沒關係」或是「晚點再做也來得及」。\n午後，我打開了電腦，原本打算開始工作，但不知不覺中我就打開了社交媒體，瀏覽起了朋友的動態和一些有趣的影片。當我回過神來，時間已經過去了兩個小時。這種情況並不少見，每當我意識到這一點時，內心總是充滿了罪惡感和自責。",
   "I am a good boy",
   "I am a good girl",
   "I am a good man",
@@ -98,6 +101,21 @@ final randomStrings = [
   "I am a good athlete",
   "I am a good sportsman",
 ];
+
+final _musicTitleCache = musicInfo.keys.toList();
+final randomMusicTitle = [
+  _musicTitleCache[0],
+  _musicTitleCache[1],
+  _musicTitleCache[2],
+  _musicTitleCache[3],
+  _musicTitleCache[4],
+  _musicTitleCache[5],
+  _musicTitleCache[6],
+  _musicTitleCache[7],
+  _musicTitleCache[8],
+  _musicTitleCache[0],
+];
+final randomMusicPath = randomMusicTitle.map((i)=>musicInfo[i]!).toList();
 
 final randomDates = [
   DateTime.now(),

@@ -37,7 +37,8 @@ class NewDiaryBloc extends Bloc<NewDiaryEvent, NewDiaryState> {
           content: event.diaryContent,
           date: DateTime.now(),
           mood: Mood.normal,
-          songId: event.songId,
+          musicTitle: event.musicTitle,
+          musicPath: event.musicPath,
           comments: [
             Comment(
               content: response.data['feedback'],
