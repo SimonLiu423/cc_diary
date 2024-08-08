@@ -1,5 +1,6 @@
 # CC Diary
-Capture Your moments, Cultivate Insights
+
+<video controls src="presentation/ccDiary_intro.mp4" title="Title"></video>
 
 
 ## 競賽議題 & 子議題
@@ -10,6 +11,7 @@ Capture Your moments, Cultivate Insights
 
 
 ### 專案簡介
+<video controls src="presentation/ccDiary_fucntions.mp4" title="Title"></video>
 - 用途/功能：
     CC Diary是一個日記應用程式，旨在幫助用戶記錄每日心情和事件，並提供基於GPT-4 API的心理健康建議。
     功能包括每日日記條目、AI分析反饋、時間軸視覺化、匿名探索頁面、心理健康助手和情緒跟踪圖表。
@@ -79,5 +81,4 @@ Capture Your moments, Cultivate Insights
     實作 l10n，目前支援中文和英文，方便全世界的人使用
 
 ### 成果展示
-- 可附上其他專案介紹的投影片/文件等等
-> SITCON Hackathon 2024
+- [presentation](presentation/ccDiary_afterProcessed..pdf)
