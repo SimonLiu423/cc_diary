@@ -1,6 +1,6 @@
 # CC Diary
-
-<video controls src="presentation/ccDiary_intro.mp4" title="Title"></video>
+> ![](https://raw.githubusercontent.com/SimonLiu423/cc_diary/presentation/main/ccDiary_intro.gif)
+<!-- <video controls src="presentation/ccDiary_intro.mp4" title="Title"></video> -->
 
 
 ## 競賽議題 & 子議題

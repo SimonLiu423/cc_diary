@@ -1,1 +1,1 @@
-const apiUrl = "http://wavjaby.nckuctf.org:25569";
+const apiUrl = "http://wavjaby.nckuctf.org:25568";
