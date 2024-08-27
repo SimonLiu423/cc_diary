@@ -1,84 +1,102 @@
-# CC Diary
-> ![](https://raw.githubusercontent.com/SimonLiu423/cc_diary/presentation/main/ccDiary_intro.gif)
-<!-- <video controls src="presentation/ccDiary_intro.mp4" title="Title"></video> -->
+# ccDiary.
 
+ccDiary is an innovative journaling application designed to enhance mental health through daily mood tracking, AI-powered insights, and community support.
 
-## 競賽議題 & 子議題
-- **團隊名稱**： 不嘻嘻的時候，黑客松松澤
-- **成員姓名**： 游松澤、張羿軒、劉力瑋、張昀棠
-- **競賽議題**： 數位心擁：資訊科技促進心理健康
-    - **子議題**： 心靈照護與關懷 X SITCON
+![](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/ccDiary_intro.gif)
 
+## User Story Video
 
-### 專案簡介
-<video controls src="presentation/ccDiary_fucntions.mp4" title="Title"></video>
-- 用途/功能：
-    CC Diary是一個日記應用程式，旨在幫助用戶記錄每日心情和事件，並提供基於GPT-4 API的心理健康建議。
-    功能包括每日日記條目、AI分析反饋、時間軸視覺化、匿名探索頁面、心理健康助手和情緒跟踪圖表。
-    - 日記條目和回應：
-        撰寫日記條目並收到反饋，強調無縫的體驗和有價值的見解。
-    - 時間軸視覺化：
-        查看日記時間軸，強調關鍵時刻和趨勢。
-    - 匿名探索頁面：
-        展示支持性社區，與其他人的匿名互動並獲得反饋。
-    - 心理健康助手：
-        介紹心理健康助手頁面，包括多語言聊天機器人功能，使用它來獲取常見問題的建議。
-    - 情緒跟踪圖表：
-        展示情緒跟踪圖表，解釋如何結合 AI 分析和用戶輸入來視覺化情感趨勢。
+Watch our user story video to see how CC Diary can make a difference in people's lives:
 
+[![CC Diary User Story](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/img/ccDiary-0002.jpg)](https://www.youtube.com/watch?v=5liPXXo4A1I)
 
-- 目標客群&使用情境：
-  - 學生：<br>
-    作為心情記錄和心理健康管理的工具。
-  - 一般民眾：<br>
-    希望以日記形式記錄生活，並獲得心理健康支持的用戶。
-  - 心理健康專業人士：<br>
-    可用於輔導患者並追踪其情緒變化。 
+## Features
 
+[![CC Diary Functions](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/img/ccDiary-0009.jpg)](https://www.youtube.com/watch?v=2JLdxoqEd9Q)
 
-- 操作方式：
-  - 底部功能列表：
-    - 功能列表提供：心理疾病資訊, 探索, 新增日記, 我的日記, 以及統計的功能
-  - 新增日記頁面：
-    - 頂部有搜尋欄，可讓使用者自行選擇屬於當天心情的音樂。<br>
-      中間文字編輯區用於撰寫日記，將於送出後交給AI分析。<br>
-      底部拉桿選擇當天心情，右邊送出按鈕按下後，會將以上資訊經過篩選，並交由AI進行分析。<br>
-      分析完成後，會跳出結果，內容包含AI做出的看法以及建議等。
-  - 心理疾病資訊頁面：
-    - 提供各種心理疾病的詳細資訊
-  - 心理健康助手頁面：
-    - 點擊心理疾病資訊頁面右下的按鈕進入心理健康助手頁面，<br>
-      底部輸入關於心理疾病的問題，右下角按鈕送出後，AI會使用我們提供個文件進行統整並回答。
-  - 匿名探索頁面：
-    - 經過後端篩選通送其他使用者的日記，可在日記中留言
-  - 我的日記時間軸頁面：
-    - 個人日記的歷史紀錄
-  - 情緒跟踪圖表頁面：
-    - 每日的心情曲線圖
-      
+1. **Information Station**
+   - Comprehensive database of mental health disorders
+   - Information on high-risk groups, explanations, and symptoms
+   - Content curated from authoritative medical sources
+   - Mental Health Chat Consultation:
+     - AI-powered chatbot using GPT-4 API
+     - Answers questions about emotions, mental health disorders, and what to ask during first consultations
+     - Based on authoritative mental health resources
 
-### 使用資源
-- 企業資源：
-    - OpenAI<br>
-    我們所選用的模型。
-- 公開資源：
-    - LangChain<br>
-    有了這個 package，可以更輕鬆的客製化我們的模型。
-    - Hugging Face<br>
-    提供情緒分析的模型給後端使用。
-    - Pytorch<br>
-    從使用者的日記客觀地分析其情緒變化並給予回饋。
-    - Flutter<br>
-    用於構建 APP
-- 後端程式：
-  - https://github.com/Andrewtangtang/CCdiary-backend<br>
-    提供API給APP使用。
-    
+2. **Explore (Anonymous Community)**
+   - Safe space to share experiences anonymously
+   - Read and interact with others' stories
+   - Foster a supportive community environment
 
-### 你還想分享的事情
-  - 推廣全球為目標！<br>
-    使用Flutter框架，有助於建立更好的程式架構，易於多人開發<br>
-    實作 l10n，目前支援中文和英文，方便全世界的人使用
+3. **Add Diary**
+   - Text input area for writing daily entries
+   - Music selection to match your mood (from our curated database)
+   - Daily mood tracker for comprehensive mental health assessment
+   - AI-Powered Insights:
+     - Personalized AI responses to each entry
+     - Potential mental health issue assessment
+     - Suggestions and advice based on journal content
 
-### 成果展示
-- [presentation](presentation/ccDiary_afterProcessed..pdf)
+4. **My Diary**
+   - Timeline view of all journal entries
+   - Access to past entries, AI suggestions, mental state evaluations, and community responses
+   - Ability to revisit and reflect on personal growth
+
+5. **Emotional Curve**
+   - Visual representation of mood trends
+   - Graph based on self-reported moods and AI's positive/negative evaluations
+   - Helps in tracking emotional patterns over time
+
+## Additional Features
+
+- **Multilingual Support**: Currently supports Chinese and English, making mental health support accessible to a global audience
+
+## Technology Stack
+
+- Frontend: Flutter (iOS, Android, Web support)
+- Backend: [Link to backend repository](https://github.com/Andrewtangtang/CCdiary-backend)
+- AI Integration: OpenAI GPT-4, LangChain
+- Emotion Analysis: Hugging Face, PyTorch
+
+## Getting Started
+
+CC Diary is currently in active development and not yet available for public use. There are a few reasons for this:
+
+1. API Costs: The app relies on GPT API, which incurs costs for each use. We're working on optimizing this to make the app sustainable.
+2. Backend Infrastructure: We're in the process of securing a reliable and cost-effective server solution to host our backend services.
+
+We're excited about the potential of CC Diary and are working hard to make it available to users as soon as possible. Stay tuned for updates on our progress!
+
+If you're a developer interested in contributing to the project, please check out our [Contributing Guidelines](CONTRIBUTING.md) for more information on how you can get involved.
+
+## Usage
+
+(This section will be updated with user guidelines once the app is ready for public use.)
+
+## Awards
+
+- 1st Prize in [Hackathon Name] (2024)
+
+## Future Development
+
+- Implement a matching mechanism to pair users with long-term negative emotions with more positive users in the Explore page
+- Collaborate with professional counselors to provide direct contact channels when users need it
+- Continuously enhance user data analysis to provide objective insights into users' mental and physical conditions
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details.
+
+## License
+
+(Include license information)
+
+## Contact
+
+Feel free to mail to us by vacliscofounders@gmail.com for collaboration or bugs report!
+
+---
+
+Developed with ❤️ by 游松澤 (Yu Song-Ze), 張羿軒 (Zhang Yi-Xuan), 劉力瑋 (Liu Li-Wei), 張昀棠 (Zhang Yun-Tang)
+
+Project Team: 不嘻嘻的時候，黑客松松澤
