@@ -2,8 +2,8 @@
 
 ccDiary is an innovative journaling application designed to enhance mental health through daily mood tracking, AI-powered insights, and community support.
 
-[![](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/ccDiary_intro.gif)](https://github.com/SimonLiu423/cc_diary/blob/61104e21db6f5a4cf7f9cfe8a971b073cdf62ecd/presentation/ccDiary.pdf)
-<!-- [Presentation PDF](https://github.com/SimonLiu423/cc_diary/blob/61104e21db6f5a4cf7f9cfe8a971b073cdf62ecd/presentation/ccDiary.pdf) -->
+[![CC Diary Intro](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/ccDiary_intro.gif)](https://github.com/SimonLiu423/cc_diary/blob/61104e21db6f5a4cf7f9cfe8a971b073cdf62ecd/presentation/ccDiary.pdf)
+*Click on the GIF to view our full presentation PDF*
 
 ## Features
 
