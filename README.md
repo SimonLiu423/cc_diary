@@ -8,11 +8,11 @@ ccDiary is an innovative journaling application designed to enhance mental healt
 
 Watch our user story video to see how CC Diary can make a difference in people's lives:
 
-[![CC Diary User Story](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/img/ccDiary-0002.jpg)](https://www.youtube.com/watch?v=5liPXXo4A1I)
+[![CC Diary User Story](https://raw.githubusercontent.com/SimonLiu423/cc_diary/84030d4f39d50c8c18220fc63f916ca8559be5fa/presentation/img/ccDiary-0002.jpg)](https://www.youtube.com/watch?v=5liPXXo4A1I)
 
 ## Features
 
-[![CC Diary Functions](https://raw.githubusercontent.com/SimonLiu423/cc_diary/ec4694b2518ead544a0f982be761f6c4276f51dd/presentation/img/ccDiary-0009.jpg)](https://www.youtube.com/watch?v=2JLdxoqEd9Q)
+[![CC Diary Functions](https://raw.githubusercontent.com/SimonLiu423/cc_diary/84030d4f39d50c8c18220fc63f916ca8559be5fa/presentation/img/ccDiary-0009.jpg)](https://www.youtube.com/watch?v=2JLdxoqEd9Q)
 
 1. **Information Station**
    - Comprehensive database of mental health disorders
