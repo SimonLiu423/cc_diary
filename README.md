@@ -74,7 +74,7 @@ If you're a developer interested in contributing to the project, please check ou
 
 ## Awards
 
-- 1st Prize in [Hackathon Name] (2024)
+- 1st Prize in [SITCON Hackathon] (2024)
 
 ## Future Development
 
