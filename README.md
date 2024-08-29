@@ -13,8 +13,8 @@ ccDiary is an innovative journaling application designed to enhance mental healt
    - Content curated from authoritative medical sources
    - Mental Health Chat Consultation:
      - AI-powered chatbot using GPT-4 API
-     - Answers questions about emotions, mental health disorders, and what to ask during first consultations
-     - Based on authoritative mental health resources
+     - Answers questions about emotions, mental health disorders, what to ask during first consultations, and so on
+     - Based on and restricted in authoritative mental health resources
 
 2. **Explore (Anonymous Community)**
    - Safe space to share experiences anonymously
@@ -31,14 +31,14 @@ ccDiary is an innovative journaling application designed to enhance mental healt
      - Suggestions and advice based on journal content
 
 4. **My Diary**
-   - Timeline view of all journal entries
-   - Access to past entries, AI suggestions, mental state evaluations, and community responses
-   - Ability to revisit and reflect on personal growth
+   - Timeline view:
+      - Access to past entries, AI suggestions, mental state evaluations, and community responses
+      - Ability to reflect on personal growth over time
 
 5. **Emotional Curve**
    - Visual representation of mood trends
    - Graph based on self-reported moods and AI's positive/negative evaluations
-   - Helps in tracking emotional patterns over time
+   - Emotion Tracking: Helps in tracking emotional patterns over time
 
 ## Additional Features
 
@@ -74,12 +74,12 @@ If you're a developer interested in contributing to the project, please check ou
 
 ## Awards
 
-- 1st Prize in [SITCON Hackathon] (2024)
+- 1st Prize in **SITCON Hackathon** (2024)
 
 ## Future Development
 
-- Implement a matching mechanism to pair users with long-term negative emotions with more positive users in the Explore page
-- Collaborate with professional counselors to provide direct contact channels when users need it
+- User Matching Mechanism: Match users with long-term negative emotions with more positive community members for support
+- Direct Contact Channels: Collaborate with professional counselors to provide direct contact channels when users need it
 - Continuously enhance user data analysis to provide objective insights into users' mental and physical conditions
 
 ## Contributing
