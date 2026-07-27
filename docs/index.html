@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ccDiary — Capture your moments, cultivate insights</title>
+<meta name="description" content="ccDiary is a mental health journaling app: private writing with a soundtrack, an AI that responds to what you actually wrote, an emotional curve over time, and an anonymous community. 1st Prize, SITCON Hackathon 2024." />
+<meta property="og:title" content="ccDiary — Capture your moments, cultivate insights" />
+<meta property="og:description" content="Mental health journaling with AI insight and an anonymous community. 1st Prize, SITCON Hackathon 2024." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A2E1B'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23F5EBE0'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Sacramento&display=swap" rel="stylesheet" />
+<style>
+/* ---------------------------------------------------------------
+   ccDiary — palette taken verbatim from lib/theme.dart and the
+   original SITCON pitch deck (presentation/ccDiary.pdf, slide 1).
+   --------------------------------------------------------------- */
+:root{
+  --paper:#EAEBE7;        /* deck slide background          */
+  --cream:#F5EBE0;        /* primaryColor      — app canvas */
+  --surface:#E3D5CA;      /* primaryColorDark  — cards      */
+  --surface-deep:#D6CCC2; /* secondaryHeaderColor — bars    */
+  --ink:#3A2314;
+  --ink-soft:#4A2E1B;     /* deck wordmark brown            */
+  --muted:#6B5847;
+  --hair:#CFC5B8;
+  --chart-a:#3E8FCB;
+  --chart-b:#8BC34A;
+
+  --step--1:clamp(.82rem,.79rem + .14vw,.9rem);
+  --step-0:clamp(1rem,.96rem + .2vw,1.12rem);
+  --step-1:clamp(1.2rem,1.12rem + .38vw,1.45rem);
+  --step-2:clamp(1.5rem,1.34rem + .78vw,2.1rem);
+  --step-3:clamp(2rem,1.6rem + 2vw,3.4rem);
+  --step-4:clamp(2.8rem,1.9rem + 4.4vw,6rem);
+
+  --gutter:clamp(1.25rem,5vw,4rem);
+  --band:clamp(4rem,8vw,7rem);
+  --measure:34rem;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Newsreader",ui-serif,Georgia,"Times New Roman",serif;
+  font-size:var(--step-0);
+  line-height:1.62;
+  text-wrap:pretty;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* very fine paper grain, so the flat creams read as stock not screen */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:"Poppins",ui-sans-serif,system-ui,sans-serif;font-weight:700;line-height:1.06;letter-spacing:-.022em;margin:0;color:var(--ink-soft)}
+p{margin:0}
+a{color:var(--ink-soft);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#12100E}
+
+.wrap{max-width:76rem;margin-inline:auto;padding-inline:var(--gutter)}
+.band{padding-block:var(--band)}
+.lede{font-size:var(--step-1);line-height:1.5;color:var(--muted);max-width:var(--measure)}
+
+.eyebrow{
+  font-family:"Poppins",sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0;
+}
+.rule{height:1px;background:var(--hair);border:0;margin:0}
+
+/* ============================== HERO ============================== */
+.hero{position:relative;padding-block:clamp(3rem,7vw,6rem) 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:clamp(3rem,6vw,4.5rem);align-items:center}
+@media(min-width:1000px){.hero-grid{grid-template-columns:minmax(0,28rem) minmax(0,1fr)}}
+
+.script{
+  font-family:"Sacramento",cursive;font-size:clamp(2.6rem,6vw,4.2rem);
+  color:#C9B6A4;line-height:.8;margin:0 0 .1em -.06em;
+}
+.wordmark{
+  font-family:"Poppins",sans-serif;font-weight:800;font-size:var(--step-4);
+  letter-spacing:-.045em;line-height:.9;color:var(--ink-soft);margin:0;
+}
+.wordmark .dot{color:#B08968}
+.tagline{
+  font-family:"Newsreader",serif;font-style:italic;font-weight:400;
+  font-size:var(--step-1);color:var(--muted);margin:.9rem 0 0;max-width:26rem;
+}
+.hero-body{margin-top:1.6rem;max-width:31rem;color:var(--muted);font-size:var(--step-0)}
+
+.meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;list-style:none;padding:0}
+.meta li{
+  font-family:"Poppins",sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.04em;
+  padding:.42rem .8rem;border:1px solid var(--hair);border-radius:100px;color:var(--muted);
+  background:rgba(255,255,255,.42);
+}
+.meta li.prize{background:var(--ink-soft);border-color:var(--ink-soft);color:#F5EBE0}
+
+.cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.btn{
+  font-family:"Poppins",sans-serif;font-size:.85rem;font-weight:600;text-decoration:none;
+  padding:.8rem 1.5rem;border-radius:100px;display:inline-flex;align-items:center;gap:.5rem;
+  border:1.5px solid var(--ink-soft);transition:transform .18s ease,background .18s ease,color .18s ease;
+}
+.btn-solid{background:var(--ink-soft);color:#F5EBE0}
+.btn-solid:hover{background:#2A1809;color:#fff;transform:translateY(-2px)}
+.btn-ghost{color:var(--ink-soft);background:transparent}
+.btn-ghost:hover{background:rgba(74,46,27,.08);color:var(--ink-soft);transform:translateY(-2px)}
+
+/* phone cluster */
+.cluster{
+  position:relative;display:flex;justify-content:center;align-items:flex-end;
+  padding-bottom:2rem;
+}
+.cluster .phone{flex:0 0 auto}
+.cluster .side{display:none;opacity:.96;z-index:1}
+.cluster .lead{z-index:2}
+/* the two flanking phones only appear once the column is genuinely wide
+   enough for them — below this they would ride over the hero copy */
+@media(min-width:1300px){
+  .cluster .side{display:block}
+  /* scale() leaves the layout box at its full 300px, so each flanking phone
+     also gets -42px either side to make its footprint match what you see
+     (300 → 216), plus a further -40px on the inner edge for the overlap. */
+  .cluster{transform:translateX(3.5rem)}
+  .cluster .side{transform-origin:center bottom}
+  .cluster .left{transform:scale(.72) translateY(16px) rotate(-4deg);margin:0 -82px 0 -42px}
+  .cluster .right{transform:scale(.72) translateY(16px) rotate(4deg);margin:0 -42px 0 -82px}
+}
+@media(max-width:640px){.cluster{padding-bottom:1rem}}
+
+/* ============================ PHONE UI ============================
+   Faithful reconstruction of the shipped app in its English locale.
+   Colours from lib/theme.dart; copy verbatim from lib/l10n/app_en.arb.
+   ================================================================= */
+.phone{
+  width:300px;background:#15120F;border-radius:44px;padding:9px;
+  box-shadow:0 26px 60px -22px rgba(58,35,20,.5),0 2px 6px rgba(58,35,20,.16);
+}
+.screen{
+  background:var(--cream);border-radius:36px;overflow:hidden;
+  height:604px;display:flex;flex-direction:column;
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:11px;line-height:1.45;color:#1C1712;
+}
+.appbar{
+  background:var(--surface-deep);padding:9px 12px 10px;text-align:center;
+  font-weight:600;font-size:11.5px;letter-spacing:.01em;flex:0 0 auto;
+}
+.appbar .back{float:left;font-weight:400;opacity:.65}
+.stage{flex:1 1 auto;padding:11px;display:flex;flex-direction:column;gap:9px;overflow:hidden}
+.navbar{
+  background:var(--surface-deep);display:grid;grid-template-columns:repeat(5,1fr);
+  align-items:end;padding:7px 4px 9px;flex:0 0 auto;
+}
+.navbar span{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:8px;opacity:.62}
+.navbar span.on{opacity:1;font-weight:600}
+.navbar svg{width:15px;height:15px;fill:#1C1712}
+
+.pill{
+  background:var(--surface);border-radius:100px;padding:8px 13px;
+  display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.09em;
+}
+.tri{width:0;height:0;border-left:6px solid #1C1712;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.pause{display:flex;gap:2px}
+.pause i{width:2.5px;height:9px;background:#1C1712;display:block}
+
+.field{background:var(--surface);border-radius:9px;padding:11px;flex:1 1 auto;overflow:hidden}
+.field.hint{color:#8B7B6B}
+.moodrow{display:flex;align-items:center;gap:9px;flex:0 0 auto;padding-bottom:2px}
+.moodrow img{width:21px;height:21px;opacity:.8}
+.slider{flex:1;height:3px;background:#E3D0C0;border-radius:3px;position:relative}
+.slider::before{content:"";position:absolute;left:0;top:0;height:100%;width:62%;background:#7A5C43;border-radius:3px}
+.slider::after{content:"";position:absolute;left:62%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;background:#7A5C43;border-radius:50%}
+.save{background:#7A5C43;color:#F5EBE0;border-radius:100px;padding:6px 15px;font-size:10px;font-weight:600}
+
+/* timeline (My Diary) */
+.tl{display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.tl-row{display:grid;grid-template-columns:26px 11px 1fr;gap:7px;align-items:start}
+.tl-date{font-size:9px;color:#7A6A5A;text-align:right;padding-top:15px}
+.tl-spine{position:relative;justify-self:center;width:11px;align-self:stretch}
+.tl-spine::before{content:"";position:absolute;left:5px;top:0;bottom:-11px;width:1.5px;background:var(--surface)}
+.tl-spine::after{content:"";position:absolute;left:1.5px;top:16px;width:8px;height:8px;border-radius:50%;background:#B9A392}
+.tl-card{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tl-note{background:var(--surface);border-radius:8px;padding:9px;font-size:10px;color:#2A211A}
+
+/* comments (Explore) */
+.author{display:flex;align-items:center;gap:8px}
+.avatar{width:23px;height:23px;border-radius:50%;background:#B9A392;flex:0 0 auto;position:relative;overflow:hidden}
+.avatar::before{content:"";position:absolute;left:50%;top:5px;width:8px;height:8px;border-radius:50%;background:#F1E7DC;transform:translateX(-50%)}
+.avatar::after{content:"";position:absolute;left:50%;top:14px;width:15px;height:12px;border-radius:8px 8px 0 0;background:#F1E7DC;transform:translateX(-50%)}
+.author .who{font-weight:600;font-size:10.5px}
+.author .when{font-size:8.5px;color:#8B7B6B}
+.author .track{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.08em}
+.cbox{border-top:1px solid var(--surface);padding-top:8px;font-size:10px;color:#9C8C7C}
+.reply{display:flex;flex-direction:column;gap:4px}
+.reply-head{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:600}
+.reply-head .when{font-weight:400;font-size:8.5px;color:#8B7B6B}
+.reply p{font-size:9.5px;color:#3A2E24}
+.mon{width:14px;height:11px;border:1.5px solid #1C1712;border-radius:2px;flex:0 0 auto}
+
+/* info grid */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1 1 auto;min-height:0}
+.tile{
+  position:relative;background:#8A7963;border-radius:6px;display:flex;
+  align-items:center;justify-content:center;overflow:hidden;min-height:0;
+}
+.tile img{width:76%;height:76%;object-fit:contain;opacity:.9}
+/* the app lays a translucent brown scrim over the line art and centres the
+   label on top of it — reproduced here so the white type stays legible */
+.tile::after{content:"";position:absolute;inset:0;background:rgba(74,46,27,.34)}
+.tile b{
+  position:absolute;z-index:2;left:0;right:0;top:50%;transform:translateY(-50%);
+  text-align:center;color:#fff;font-size:9.5px;font-weight:700;
+  text-shadow:0 1px 4px rgba(0,0,0,.6);padding:0 5px;line-height:1.22;
+}
+.fab{
+  align-self:flex-end;background:var(--cream);border-radius:100px;
+  padding:7px 12px;font-size:9.5px;font-weight:600;display:flex;align-items:center;gap:6px;
+  box-shadow:0 3px 10px rgba(58,35,20,.22);flex:0 0 auto;
+}
+
+/* chart */
+.chart-title{text-align:center;font-size:15px;font-weight:700;letter-spacing:1.4px;padding:8px 0 4px}
+.chart-wrap{flex:1 1 auto;display:flex;align-items:flex-start;padding-top:6px;min-height:0}
+
+/* ========================== PROBLEM BAND ========================== */
+.dark{background:var(--surface);color:var(--ink-soft)}
+.quote{
+  font-size:var(--step-3);font-family:"Poppins",sans-serif;font-weight:700;
+  letter-spacing:-.03em;line-height:1.04;max-width:20ch;margin:0;
+}
+.attr{font-size:var(--step--1);color:var(--muted);margin-top:1.4rem;font-style:italic;max-width:32rem}
+.beats{display:grid;gap:2.4rem;margin-top:0}
+@media(min-width:820px){.beats{grid-template-columns:repeat(3,1fr);gap:2.6rem}}
+.beat{display:flex;flex-direction:column;gap:.7rem}
+.beat .n{
+  font-family:"Poppins",sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  color:#9A8571;
+}
+.beat p{color:#4E3E30;font-size:var(--step-0)}
+.turn{
+  margin-top:clamp(3rem,6vw,4.5rem);font-family:"Poppins",sans-serif;font-weight:700;
+  font-size:var(--step-2);letter-spacing:-.028em;line-height:1.15;max-width:18ch;
+}
+
+/* ============================== STEPS ============================= */
+.steps{display:grid;gap:2.6rem;margin-top:3.4rem;counter-reset:s}
+@media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr);gap:3rem}}
+.step{display:flex;flex-direction:column;gap:.8rem;position:relative;padding-top:1.6rem;border-top:1px solid var(--hair)}
+.step::before{
+  counter-increment:s;content:counter(s,decimal-leading-zero);
+  font-family:"Poppins",sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.16em;color:#A08D79;
+}
+.step h3{font-size:var(--step-1)}
+.step p{color:var(--muted);font-size:var(--step--1);line-height:1.6}
+
+/* ============================= FEATURES =========================== */
+.feature{display:grid;gap:clamp(2.4rem,5vw,4.5rem);align-items:center;padding-block:clamp(3.4rem,6vw,5rem)}
+@media(min-width:940px){
+  .feature{grid-template-columns:minmax(0,1fr) minmax(0,.86fr)}
+  .feature.flip .f-art{order:-1}
+}
+.f-art{display:flex;justify-content:center}
+.f-art .phone{transform:scale(.94)}
+.f-kicker{
+  font-family:"Poppins",sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:#9A8571;margin:0 0 1rem;
+}
+.feature h3{font-size:var(--step-2);max-width:16ch}
+.feature .body{margin-top:1.1rem;color:var(--muted);max-width:var(--measure);font-size:var(--step-0)}
+.f-list{margin:1.5rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.f-list li{
+  display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:baseline;
+  font-size:var(--step--1);color:var(--muted);
+}
+.f-list li::before{content:"";width:5px;height:5px;border-radius:50%;background:#B9A392;transform:translateY(-2px)}
+
+/* ============================== STACK ============================= */
+.stack{display:grid;gap:2.4rem;margin-top:3rem}
+@media(min-width:760px){.stack{grid-template-columns:repeat(3,1fr);gap:2.6rem}}
+.stack h3{font-size:var(--step--1);font-family:"Poppins",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#9A8571;font-weight:700}
+.stack ul{list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.45rem}
+.stack li{
+  font-family:"Poppins",sans-serif;font-size:.75rem;font-weight:500;color:var(--ink-soft);
+  border:1px solid var(--hair);border-radius:6px;padding:.35rem .65rem;background:rgba(255,255,255,.5);
+}
+
+/* ============================== TEAM ============================== */
+.award{
+  display:grid;gap:2rem;align-items:start;
+}
+@media(min-width:860px){.award{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(3rem,6vw,5rem)}}
+.trophy{font-family:"Poppins",sans-serif;font-weight:800;font-size:var(--step-3);letter-spacing:-.03em;line-height:1;color:var(--ink-soft)}
+.team{list-style:none;margin:0;padding:0;display:grid;gap:.9rem}
+@media(min-width:560px){.team{grid-template-columns:1fr 1fr;gap:1rem 2rem}}
+.team li{display:flex;flex-direction:column;gap:.15rem;padding-block:.7rem;border-top:1px solid var(--hair)}
+.team .name{font-family:"Poppins",sans-serif;font-weight:600;font-size:.95rem;color:var(--ink-soft)}
+.team .han{font-size:.85rem;color:var(--muted)}
+.team a{font-family:"Poppins",sans-serif;font-size:.78rem;color:var(--muted);text-decoration:none}
+.team a:hover{color:var(--ink-soft);text-decoration:underline}
+
+/* ============================ ROADMAP ============================= */
+.road{display:grid;gap:2.2rem;margin-top:3rem}
+@media(min-width:820px){.road{grid-template-columns:repeat(3,1fr);gap:2.6rem}}
+.road div{border-top:1px solid var(--hair);padding-top:1.4rem}
+.road h3{font-size:var(--step-1);margin-bottom:.6rem}
+.road p{color:var(--muted);font-size:var(--step--1);line-height:1.6}
+
+.note{
+  margin-top:clamp(3rem,6vw,4.5rem);padding:clamp(1.5rem,3vw,2.2rem);
+  background:rgba(255,255,255,.5);border:1px solid var(--hair);border-radius:12px;
+  max-width:46rem;
+}
+.note h4{font-family:"Poppins",sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9A8571;margin-bottom:.7rem}
+.note p{font-size:var(--step--1);color:var(--muted);line-height:1.66}
+.note p + p{margin-top:.7rem}
+
+/* =========================== MATERIALS ============================ */
+.mats{display:grid;gap:2.4rem;align-items:start;margin-top:3rem}
+@media(min-width:900px){.mats{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2.5rem,5vw,4rem)}}
+.demo{border:1px solid var(--hair);border-radius:12px;overflow:hidden;background:var(--cream)}
+.demo img{width:100%}
+.demo figcaption{font-size:.78rem;color:var(--muted);padding:.8rem 1rem;border-top:1px solid var(--hair)}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.links li{border-top:1px solid var(--hair)}
+.links li:last-child{border-bottom:1px solid var(--hair)}
+.links a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:1.05rem .2rem;text-decoration:none;font-family:"Poppins",sans-serif;
+  font-size:.92rem;font-weight:500;color:var(--ink-soft);transition:padding .2s ease;
+}
+.links a:hover{padding-left:.7rem;color:#12100E}
+.links .k{font-family:"Newsreader",serif;font-size:.8rem;color:var(--muted);font-weight:400;text-align:right;flex:0 0 auto}
+
+/* ============================= FOOTER ============================= */
+footer{background:var(--ink-soft);color:#D8C9BA;padding-block:clamp(3.5rem,7vw,5.5rem)}
+footer .wordmark{color:#F5EBE0;font-size:var(--step-2)}
+footer a{color:#EADCCD}
+footer a:hover{color:#fff}
+.foot-grid{display:grid;gap:2.5rem}
+@media(min-width:780px){.foot-grid{grid-template-columns:1fr auto;align-items:end}}
+.foot-links{display:flex;flex-wrap:wrap;gap:1.4rem;list-style:none;margin:0;padding:0;font-family:"Poppins",sans-serif;font-size:.82rem}
+.foot-links a{text-decoration:none}
+.foot-links a:hover{text-decoration:underline}
+.colophon{margin-top:3rem;padding-top:1.8rem;border-top:1px solid rgba(245,235,224,.18);font-size:.8rem;color:#B8A897;line-height:1.7;max-width:52rem}
+.colophon a{color:#D8C9BA}
+
+/* ============================= MOTION ============================= */
+@media(prefers-reduced-motion:no-preference){
+  .rise{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+  .rise.in{opacity:1;transform:none}
+}
+:focus-visible{outline:2.5px solid var(--ink-soft);outline-offset:3px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- ================================ HERO ================================ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="script">Mental Cares</p>
+      <h1 class="wordmark">ccDiary<span class="dot">.</span></h1>
+      <p class="tagline">Capture your moments, cultivate insights.</p>
+      <p class="hero-body">
+        A journaling app for mental health. Write the day down with a track behind it,
+        get a response from an AI that read what you actually wrote, watch your mood
+        take shape as a curve — and, when you want company, hand it to an anonymous
+        community that catches it.
+      </p>
+      <ul class="meta">
+        <li class="prize">1st Prize · SITCON Hackathon 2024</li>
+        <li>iOS · Android · Web</li>
+        <li>Flutter + GPT-4</li>
+      </ul>
+      <div class="cta">
+        <a class="btn btn-solid" href="https://github.com/SimonLiu423/cc_diary">View the source</a>
+        <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=5liPXXo4A1I">Watch the user story</a>
+      </div>
+    </div>
+
+    <div class="cluster">
+      <!-- Explore -->
+      <div class="phone side left" aria-hidden="true">
+        <div class="screen">
+          <div class="appbar">Discover</div>
+          <div class="stage">
+            <div class="author">
+              <span class="avatar"></span>
+              <span><span class="who">You</span><br /><span class="when">2024-07-06</span></span>
+              <span class="track"><span class="pause"><i></i><i></i></span> PÈRE</span>
+            </div>
+            <div class="field" style="flex:0 0 auto">
+              A day that suddenly felt full of ritual. A coffee, a woody candle,
+              headphones on, quietly doing the things I like.
+            </div>
+            <div class="cbox">Comment...</div>
+            <div class="reply">
+              <div class="reply-head"><span class="mon"></span>AI <span class="when">1 day ago</span></div>
+              <p>Reading about those small rituals, I can feel how much care you put into your days. Keep leaving yourself room for the quiet and the good.</p>
+              <p style="margin-top:4px">Mental state: healthy</p>
+            </div>
+          </div>
+          <nav class="navbar">
+            <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+            <span class="on"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.5 5 4h-5z"/></svg>Explore</span>
+            <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Add Diary -->
+      <div class="phone lead">
+        <div class="screen">
+          <div class="appbar">Add</div>
+          <div class="stage">
+            <div class="pill"><span class="tri"></span> ANGOSTURA</div>
+            <div class="field">
+              Didn't think I had it in me to build the whole information station
+              and the chatbot front-end in one day. Genuinely proud of that.
+              <br /><br />
+              Slept badly, ate at my desk, and still got it out. I want to
+              remember this feeling the next time a build goes sideways and I
+              decide I'm not good at any of this.
+            </div>
+            <div class="moodrow">
+              <img src="assets/sad.png" alt="" />
+              <span class="slider"></span>
+              <img src="assets/happy.png" alt="" />
+              <span class="save">Save</span>
+            </div>
+          </div>
+          <nav class="navbar">
+            <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.5 5 4h-5z"/></svg>Explore</span>
+            <span class="on"><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Information Station -->
+      <div class="phone side right" aria-hidden="true">
+        <div class="screen">
+          <div class="appbar">Mental Health Information Station</div>
+          <div class="stage">
+            <div class="tiles">
+              <div class="tile"><img src="assets/Depression.png" alt="" /><b>Depression</b></div>
+              <div class="tile"><img src="assets/Bipolar.png" alt="" /><b>Bipolar</b></div>
+              <div class="tile"><img src="assets/Anxiety.png" alt="" /><b>Anxiety</b></div>
+              <div class="tile"><img src="assets/PTSD.png" alt="" /><b>Post-traumatic stress disorder</b></div>
+              <div class="tile"><img src="assets/Delusional.png" alt="" /><b>Delusional</b></div>
+              <div class="tile"><img src="assets/Schizophrenia.png" alt="" /><b>Schizophrenia</b></div>
+            </div>
+            <div class="fab"><span class="mon"></span> Mental Health Assistance</div>
+          </div>
+          <nav class="navbar">
+            <span class="on"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+            <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+            <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="dark">
+  <div class="wrap band">
+    <p class="eyebrow rise">Why we built it</p>
+    <h2 class="quote rise" style="margin-top:1.6rem">You throw your heart out, and the world keeps dropping the catch.</h2>
+    <p class="attr rise">
+      — Xu Pei-fen, <em>I Only Worry Whether the Rain Will Keep Falling Until Tomorrow Morning</em>.
+      The line the whole project started from.
+    </p>
+
+    <hr class="rule" style="margin:clamp(3rem,6vw,4.5rem) 0" />
+
+    <div class="beats">
+      <div class="beat rise">
+        <span class="n">01</span>
+        <p>Some words come out. There is still nowhere for the feeling behind them to go.</p>
+      </div>
+      <div class="beat rise">
+        <span class="n">02</span>
+        <p>So you wrap them carefully and post them to Threads or X. Nobody catches them — you get negative replies instead. If you are unlucky, your identity gets passed around and put on trial.</p>
+      </div>
+      <div class="beat rise">
+        <span class="n">03</span>
+        <p>And the algorithms underneath, tuned for ad revenue rather than for you, quietly amplify the negativity, the echo chamber and the hostility.</p>
+      </div>
+    </div>
+
+    <p class="turn rise">So we built somewhere else to put it.</p>
+  </div>
+</section>
+
+<!-- ============================= HOW IT WORKS =========================== -->
+<section>
+  <div class="wrap band">
+    <p class="eyebrow rise">How it works</p>
+    <h2 class="rise" style="font-size:var(--step-2);margin-top:1.2rem;max-width:20ch">Three things happen every time you write an entry.</h2>
+    <div class="steps">
+      <div class="step rise">
+        <h3>Write it down</h3>
+        <p>Pick a track from the in-app library that matches the day, write as much or as little as you want, and set where your mood actually sits on a scale from −1 to +1.</p>
+      </div>
+      <div class="step rise">
+        <h3>Get a real response</h3>
+        <p>GPT-4, grounded in the clinical material the team compiled, replies to what you actually wrote — supportively — and notes how your mental state reads from it.</p>
+      </div>
+      <div class="step rise">
+        <h3>Watch it over time</h3>
+        <p>The entry joins your timeline and your emotional curve. Share it anonymously and the community can reply too, so the next reader is a person rather than a model.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FEATURES ============================== -->
+<section class="dark">
+  <div class="wrap" style="padding-block:clamp(3rem,6vw,5rem)">
+    <p class="eyebrow rise">The app</p>
+
+    <!-- 1 · Add Diary -->
+    <article class="feature rise">
+      <div>
+        <p class="f-kicker">Feature 01</p>
+        <h3>Write, with a soundtrack behind it.</h3>
+        <p class="body">
+          The composer is three controls and nothing else: a song, a text area that
+          only asks <em>what happens today…</em>, and a mood slider. Hit Save and the
+          entry goes off for analysis; the AI's reply comes back before you leave the screen.
+        </p>
+        <ul class="f-list">
+          <li>Curated music library, searchable, playing inline while you write</li>
+          <li>Mood recorded on a continuous −1 to +1 scale, not a set of emoji</li>
+          <li>The reply is kept with the entry, so you can re-read it later</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="appbar">Add</div>
+            <div class="stage">
+              <div class="pill"><span class="tri"></span> ANGOSTURA</div>
+              <div class="field">
+                Didn't think I had it in me to build the whole information station
+                and the chatbot front-end in one day. Genuinely proud of that.
+                <br /><br />
+                Slept badly, ate at my desk, and still got it out. I want to
+                remember this feeling the next time a build goes sideways and I
+                decide I'm not good at any of this.
+              </div>
+              <div class="moodrow">
+                <img src="assets/sad.png" alt="" />
+                <span class="slider"></span>
+                <img src="assets/happy.png" alt="" />
+                <span class="save">Save</span>
+              </div>
+            </div>
+            <nav class="navbar">
+              <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+              <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+              <span class="on"><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+              <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr class="rule" />
+
+    <!-- 2 · My Diary -->
+    <article class="feature flip rise">
+      <div>
+        <p class="f-kicker">Feature 02</p>
+        <h3>A corridor of everything you've been.</h3>
+        <p class="body">
+          Every entry lands on a vertical timeline, newest first, each one still
+          carrying the song you chose that day. Open one and you get the whole
+          record back: what you wrote, what the AI said, how it read your state,
+          and anything the community replied.
+        </p>
+        <ul class="f-list">
+          <li>Date rail and preview text, so a month is scannable in one pass</li>
+          <li>Music plays back with the entry — the day comes with its own sound</li>
+          <li>Built for re-reading: the point is noticing how far you've moved</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="appbar">My Diary</div>
+            <div class="stage">
+              <div class="tl">
+                <div class="tl-row">
+                  <span class="tl-date">7/6</span>
+                  <span class="tl-spine"></span>
+                  <div class="tl-card">
+                    <div class="pill" style="padding:6px 11px"><span class="tri"></span> PÈRE</div>
+                    <div class="tl-note">
+                      A day that felt full of ritual.<br />
+                      Coffee, a woody candle, headphones.<br />
+                      Doing what I like, as if it were nothing.<br />
+                      R&amp;B on, getting through what I owe.<br />
+                      Catching each drift of feeling and<br />
+                      turning it into a note or a sentence.<br />
+                      It felt romantic. It felt lucky.
+                    </div>
+                  </div>
+                </div>
+                <div class="tl-row">
+                  <span class="tl-date">7/5</span>
+                  <span class="tl-spine"></span>
+                  <div class="tl-card">
+                    <div class="pill" style="padding:6px 11px"><span class="tri"></span> LIMBO</div>
+                    <div class="tl-note">
+                      Still feel like an incomplete person.<br />
+                      I keep wanting to be the one who<br />
+                      listens more than they talk, but I took<br />
+                      it too far, and now I don't know which<br />
+                      parts of my life are worth telling…
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <nav class="navbar">
+              <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+              <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+              <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+              <span class="on"><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+              <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr class="rule" />
+
+    <!-- 3 · Emotional Curve -->
+    <article class="feature rise">
+      <div>
+        <p class="f-kicker">Feature 03</p>
+        <h3>Two readings of the same week.</h3>
+        <p class="body">
+          The Statistics tab plots your Mood Index over time twice: the mood you
+          reported when you wrote, and the sentiment the AI independently read out
+          of the writing itself. The days where the two lines pull apart are the
+          interesting ones.
+        </p>
+        <ul class="f-list">
+          <li>Self-reported mood against machine-read sentiment, on one axis</li>
+          <li>Makes a slow drift visible long before any single day feels wrong</li>
+          <li>Emotion analysis runs on Hugging Face models served with PyTorch</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="appbar">Statistics</div>
+            <div class="stage">
+              <div class="chart-title">Emotional Curve</div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 268 158" width="100%" role="img" aria-label="Emotional Curve chart">
+                  <rect x="30" y="14" width="228" height="112" fill="#E3D5CA" />
+                  <g stroke="#B9A392" stroke-width=".7" stroke-dasharray="3 3" opacity=".85">
+                    <line x1="30" y1="45" x2="258" y2="45" /><line x1="30" y1="76" x2="258" y2="76" />
+                    <line x1="30" y1="107" x2="258" y2="107" />
+                    <line x1="76" y1="14" x2="76" y2="126" /><line x1="122" y1="14" x2="122" y2="126" />
+                    <line x1="168" y1="14" x2="168" y2="126" /><line x1="214" y1="14" x2="214" y2="126" />
+                  </g>
+                  <g fill="#1C1712" font-size="9" font-family="system-ui, sans-serif">
+                    <text x="24" y="28" text-anchor="end">1</text>
+                    <text x="24" y="79" text-anchor="end">0</text>
+                    <text x="24" y="130" text-anchor="end">-1</text>
+                    <text x="30" y="141" text-anchor="middle">1</text><text x="68" y="141" text-anchor="middle">2</text>
+                    <text x="106" y="141" text-anchor="middle">3</text><text x="144" y="141" text-anchor="middle">4</text>
+                    <text x="182" y="141" text-anchor="middle">5</text><text x="220" y="141" text-anchor="middle">6</text>
+                    <text x="258" y="141" text-anchor="middle">7</text>
+                    <text x="144" y="154" text-anchor="middle" font-size="8.5">Date</text>
+                  </g>
+                  <text x="10" y="76" text-anchor="middle" font-size="8.5" fill="#1C1712"
+                        font-family="system-ui, sans-serif" transform="rotate(-90 10 76)">Mood Index</text>
+                  <polyline fill="none" stroke="#3E8FCB" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"
+                            points="30,25 68,127 106,51 144,58 182,68 220,41 258,89" />
+                  <polyline fill="none" stroke="#8BC34A" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"
+                            points="30,25 68,102 106,58 144,102 182,114 220,44 258,102" />
+                  <g fill="#3E8FCB">
+                    <circle cx="30" cy="25" r="2.4" /><circle cx="68" cy="127" r="2.4" /><circle cx="106" cy="51" r="2.4" />
+                    <circle cx="144" cy="58" r="2.4" /><circle cx="182" cy="68" r="2.4" /><circle cx="220" cy="41" r="2.4" />
+                    <circle cx="258" cy="89" r="2.4" />
+                  </g>
+                  <g fill="#8BC34A">
+                    <circle cx="30" cy="25" r="2.4" /><circle cx="68" cy="102" r="2.4" /><circle cx="106" cy="58" r="2.4" />
+                    <circle cx="144" cy="102" r="2.4" /><circle cx="182" cy="114" r="2.4" /><circle cx="220" cy="44" r="2.4" />
+                    <circle cx="258" cy="102" r="2.4" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <nav class="navbar">
+              <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+              <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+              <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+              <span class="on"><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr class="rule" />
+
+    <!-- 4 · Explore -->
+    <article class="feature flip rise">
+      <div>
+        <p class="f-kicker">Feature 04</p>
+        <h3>Anonymous, and actually supportive.</h3>
+        <p class="body">
+          Explore is a deck of other people's entries, swiped one at a time, with
+          the writer's song still attached. No handles, no follower counts, no
+          engagement metrics to farm — just an entry, the AI's reply, and whatever
+          strangers wanted to say back.
+        </p>
+        <ul class="f-list">
+          <li>Everything is posted as <em>Anonymous</em>; there is nothing to dox</li>
+          <li>Nothing is ranked or promoted — there is no feed algorithm to game</li>
+          <li>Reciprocal by design: you read others the same way they read you</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="appbar">Discover</div>
+            <div class="stage">
+              <div class="author">
+                <span class="avatar"></span>
+                <span><span class="who">You</span><br /><span class="when">2024-07-06</span></span>
+                <span class="track"><span class="pause"><i></i><i></i></span> PÈRE</span>
+              </div>
+              <div class="field" style="flex:0 0 auto">
+                A day that suddenly felt full of ritual. A coffee, a woody candle,
+                headphones on, quietly doing the things I like. I hope I get to
+                keep living at this pace.
+              </div>
+              <div class="cbox">Comment...</div>
+              <div class="reply">
+                <div class="reply-head"><span class="mon"></span>AI <span class="when">1 day ago</span></div>
+                <p>
+                  Reading about those small rituals, I can feel how much care you put
+                  into your days — the music, the books, the hours spent on something
+                  you chose. I hope you get the slow, full life you're describing.
+                </p>
+                <p style="margin-top:5px">Mental state: healthy</p>
+              </div>
+              <div class="reply" style="margin-top:2px">
+                <div class="reply-head"><span class="avatar" style="width:14px;height:14px"></span>Anonymous <span class="when">3 hours ago</span></div>
+                <p>Saving this one. I want a Saturday like that.</p>
+              </div>
+            </div>
+            <nav class="navbar">
+              <span><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+              <span class="on"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+              <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+              <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr class="rule" />
+
+    <!-- 5 · Information Station -->
+    <article class="feature rise">
+      <div>
+        <p class="f-kicker">Feature 05</p>
+        <h3>Written by people, not generated.</h3>
+        <p class="body">
+          Six conditions — depression, bipolar disorder, anxiety, PTSD, delusional
+          disorder and schizophrenia — each with <em>Symptom</em>, <em>Explanation</em>
+          and <em>Commonly Affected Groups</em>. The team compiled every article by
+          hand from authoritative hospital sources rather than pulling it from
+          Wikipedia or letting a model write it.
+        </p>
+        <ul class="f-list">
+          <li>A chat assistant sits on top, restricted to that same material</li>
+          <li>Ask it what to say at a first appointment, and it will answer</li>
+          <li>Ask it something off-topic and it declines rather than improvising</li>
+          <li>Every article closes by pointing you to a specialist physician</li>
+        </ul>
+      </div>
+      <div class="f-art">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="appbar">Mental Health Information Station</div>
+            <div class="stage">
+              <div class="tiles">
+                <div class="tile"><img src="assets/Depression.png" alt="" /><b>Depression</b></div>
+                <div class="tile"><img src="assets/Bipolar.png" alt="" /><b>Bipolar</b></div>
+                <div class="tile"><img src="assets/Anxiety.png" alt="" /><b>Anxiety</b></div>
+                <div class="tile"><img src="assets/PTSD.png" alt="" /><b>Post-traumatic stress disorder</b></div>
+                <div class="tile"><img src="assets/Delusional.png" alt="" /><b>Delusional</b></div>
+                <div class="tile"><img src="assets/Schizophrenia.png" alt="" /><b>Schizophrenia</b></div>
+              </div>
+              <div class="fab"><span class="mon"></span> Mental Health Assistance</div>
+            </div>
+            <nav class="navbar">
+              <span class="on"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v7c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V5l-8-3z"/></svg>Information</span>
+              <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5z"/><path d="M16 14c2.8 0 5 1.7 5 4h-5z"/></svg>Explore</span>
+              <span><svg viewBox="0 0 24 24"><path d="M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7z"/></svg>Add</span>
+              <span><svg viewBox="0 0 24 24"><path d="M3 5h8v14H3z"/><path d="M13 5h8v14h-8z"/></svg>My Diary</span>
+              <span><svg viewBox="0 0 24 24"><path d="M4 14h3v6H4zM10.5 9h3v11h-3zM17 4h3v16h-3z"/></svg>Statistics</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =============================== STACK =============================== -->
+<section>
+  <div class="wrap band">
+    <p class="eyebrow rise">Built with</p>
+    <h2 class="rise" style="font-size:var(--step-2);margin-top:1.2rem;max-width:22ch">One Flutter codebase, three platforms, two languages.</h2>
+    <div class="stack">
+      <div class="rise">
+        <h3>Client</h3>
+        <ul>
+          <li>Flutter</li><li>BLoC</li><li>Provider</li><li>dio</li>
+          <li>fl_chart</li><li>just_audio</li><li>timelines</li>
+          <li>flutter_chat_ui</li><li>convex_bottom_bar</li>
+        </ul>
+      </div>
+      <div class="rise">
+        <h3>Intelligence</h3>
+        <ul>
+          <li>OpenAI GPT-4</li><li>LangChain</li><li>Hugging Face</li><li>PyTorch</li>
+        </ul>
+      </div>
+      <div class="rise">
+        <h3>Reach</h3>
+        <ul>
+          <li>iOS</li><li>Android</li><li>Web</li><li>English</li><li>繁體中文</li>
+        </ul>
+      </div>
+    </div>
+    <p class="rise" style="margin-top:2.6rem;color:var(--muted);font-size:var(--step--1);max-width:44rem">
+      The client lives in this repository; the API, the LangChain retrieval layer and the
+      sentiment models live in
+      <a href="https://github.com/Andrewtangtang/CCdiary-backend">CCdiary-backend</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ============================ AWARD & TEAM =========================== -->
+<section class="dark">
+  <div class="wrap band">
+    <div class="award">
+      <div class="rise">
+        <p class="eyebrow">The award</p>
+        <p class="trophy" style="margin-top:1.2rem">1st<br />Prize</p>
+        <p style="margin-top:1.2rem;color:var(--muted);font-size:var(--step--1);max-width:24rem">
+          SITCON Hackathon 2024, on the Mental Care &amp; Support track
+          (心靈照護與關懷). Built by a team of four under the name
+          不嘻嘻的時候，黑客松松澤, shipping under <strong>vaclis.</strong>
+        </p>
+      </div>
+      <div class="rise">
+        <p class="eyebrow">The team</p>
+        <ul class="team" style="margin-top:1.4rem">
+          <li>
+            <span class="name">Yu Song-Ze</span><span class="han">游松澤</span>
+            <a href="https://github.com/vaclisinc">@vaclisinc</a>
+          </li>
+          <li>
+            <span class="name">Zhang Yi-Xuan</span><span class="han">張羿軒</span>
+            <a href="https://github.com/WavJaby">@WavJaby</a>
+          </li>
+          <li>
+            <span class="name">Liu Li-Wei</span><span class="han">劉力瑋</span>
+            <a href="https://github.com/SimonLiu423">@SimonLiu423</a>
+          </li>
+          <li>
+            <span class="name">Zhang Yun-Tang</span><span class="han">張昀棠</span>
+            <a href="https://github.com/Andrewtangtang">@Andrewtangtang</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ROADMAP ============================== -->
+<section>
+  <div class="wrap band">
+    <p class="eyebrow rise">What's next</p>
+    <h2 class="rise" style="font-size:var(--step-2);margin-top:1.2rem;max-width:20ch">The parts we haven't built yet.</h2>
+    <div class="road">
+      <div class="rise">
+        <h3>Matching</h3>
+        <p>Surface entries from steadier community members to users whose curve has been trending negative for a while — so the people most likely to be dropped get caught first.</p>
+      </div>
+      <div class="rise">
+        <h3>A route to a professional</h3>
+        <p>Partner with licensed counsellors and put a direct channel in the app, for the moment when a journal and a stranger's kindness are not the right tools.</p>
+      </div>
+      <div class="rise">
+        <h3>Deeper analysis</h3>
+        <p>Keep extending the emotional analytics so someone can see their own mental and physical patterns from the outside, rather than only from inside a bad week.</p>
+      </div>
+    </div>
+
+    <div class="note rise">
+      <h4>Status &amp; honest caveats</h4>
+      <p>
+        ccDiary is not publicly released. Two things are in the way: every entry costs a
+        GPT-4 API call, and the backend needs hosting we can sustain. The build in this
+        repository is the hackathon build, and the demo backend is currently offline.
+      </p>
+      <p>
+        ccDiary is also not a medical device, and nothing in it is a diagnosis. The app
+        says so itself at the foot of every article it ships:
+        <em>“If the symptoms mentioned above persist and are pronounced, you should seek
+        help from a specialist physician.”</em> If you are in crisis in Canada or the US,
+        call or text <strong>9-8-8</strong>; in Taiwan, call <strong>1925</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= MATERIALS ============================= -->
+<section class="dark">
+  <div class="wrap band">
+    <p class="eyebrow rise">Original materials</p>
+    <div class="mats">
+      <figure class="demo rise" style="margin:0">
+        <img src="assets/ccDiary_intro.gif" alt="Animated title sequence from the original ccDiary pitch deck, showing three phones running the app" loading="lazy" />
+        <figcaption>
+          The title sequence from the original SITCON deck. Those are the real
+          screenshots, running the Traditional Chinese locale — the same screens
+          the English mock-ups above are drawn from.
+        </figcaption>
+      </figure>
+      <ul class="links rise">
+        <li><a href="https://github.com/SimonLiu423/cc_diary">Client repository<span class="k">Flutter</span></a></li>
+        <li><a href="https://github.com/Andrewtangtang/CCdiary-backend">Backend repository<span class="k">API &amp; models</span></a></li>
+        <li><a href="https://github.com/SimonLiu423/cc_diary/blob/main/presentation/ccDiary.pdf">Original pitch deck<span class="k">PDF · 中文</span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=5liPXXo4A1I">User story film<span class="k">YouTube</span></a></li>
+        <li><a href="mailto:vacliscofounders@gmail.com">vacliscofounders@gmail.com<span class="k">Get in touch</span></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== FOOTER ============================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="wordmark">ccDiary<span style="color:#B08968">.</span></p>
+        <p style="margin-top:.6rem;color:#B8A897;font-style:italic">Capture your moments, cultivate insights.</p>
+      </div>
+      <ul class="foot-links">
+        <li><a href="https://github.com/SimonLiu423/cc_diary">GitHub</a></li>
+        <li><a href="https://github.com/Andrewtangtang/CCdiary-backend">Backend</a></li>
+        <li><a href="https://github.com/SimonLiu423/cc_diary/blob/main/presentation/ccDiary.pdf">Pitch deck</a></li>
+        <li><a href="https://www.youtube.com/watch?v=5liPXXo4A1I">User story</a></li>
+        <li><a href="mailto:vacliscofounders@gmail.com">Contact</a></li>
+      </ul>
+    </div>
+    <p class="colophon">
+      Built by 游松澤, 張羿軒, 劉力瑋 and 張昀棠 for SITCON Hackathon 2024.
+      Copyright © 2024 vaclis. All rights reserved — see the
+      <a href="https://github.com/SimonLiu423/cc_diary#license">licence notice</a>
+      in the repository. The app screens on this page are reconstructions of the
+      shipped English locale, drawn from the project's own theme and interface copy.
+      ccDiary does not provide medical advice.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var els = document.querySelectorAll('.rise');
+  if (!window.IntersectionObserver ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
